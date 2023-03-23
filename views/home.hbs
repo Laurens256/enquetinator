@@ -1,19 +1,17 @@
-{{!-- <a href="/enquete">Linkj</a> --}}
-
 <main class="home">
 	<h1>De Enquetinator</h1>
 	<p></p>
 
 		<form method="POST" action="/" autocomplete="off" novalidate>
 		<label for="name">Naam</label>
-		<input type="text" name="name" id="name" />
+		<input type="text" name="name" id="name" value="{{formData.name}}" required/>
 
 		
 		<label for="studentnumber">Studentnummer</label>
-		<input type="number" name="studentnumber" id="studentnumber" />
+		<input type="number" inputmode="numeric" name="studentnumber" id="studentnumber" value="{{formData.studentnumber}}" required/>
 
 		<label for="email">Email</label>
-		<input type="email" name="email" id="email" />
+		<input type="email" inputmode="email" name="email" id="email" value="{{formData.email}}" class="test{{#errors.email}} error{{/errors.email}}" required/>
 		
 		<input type="submit" value="send"/>
 	</form>

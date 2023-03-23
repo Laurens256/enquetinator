@@ -11,10 +11,13 @@ router.post('/', async (req, res) => {
 	const formData: IFormData = req.body;
 	const errors = validateForm(formData);
 
-	if (errors.length > 0) {
+	console.log(formData);
+
+	if (errors.name || errors.studentnumber || errors.email) {
 		res.render('home', {
 			css: ['home'],
-			errors
+			formData,
+			errors,
 		});
 	} else {
 		res.send('ok');
@@ -33,23 +36,27 @@ const emailRegex =
 const studentNrRegex = /^[0-9]{9}$/;
 
 const validateForm = (formData: IFormData) => {
-	const errors = [];
+	const errors: {
+		name?: string;
+		studentnumber?: string;
+		email?: string;
+	} = {};
 	const { name, studentnumber, email } = formData;
 
 	if (name === '') {
-		errors.push('Naam is verplicht');
+		errors.name = 'Naam is verplicht';
 	}
 
 	if (email === '') {
-		errors.push('Email is verplicht');
+		errors.email = 'Email is verplicht';
 	} else if (!emailRegex.test(formData.email)) {
-		errors.push('Email is niet geldig');
+		errors.email = 'Email is niet geldig';
 	}
 
 	if (studentnumber === '') {
-		errors.push('Studentnummer is verplicht');
+		errors.studentnumber = 'Studentnummer is verplicht';
 	} else if (!studentNrRegex.test(formData.studentnumber)) {
-		errors.push('Studentnummer is niet geldig');
+		errors.studentnumber = 'Studentnummer is niet geldig';
 	}
 
 	return errors;
