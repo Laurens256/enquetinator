@@ -1,0 +1,28 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Open Sans', 'Roboto', sans-serif;
+	color: var(--text-primary);
+	background-color: var(--bg-primary);
+}
+
+button {
+	background: none;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+}
+
+:root {
+	--text-primary: #111;
+	--text-secondary: #777;
+
+	--bg-primary: #fff;
+	--bg-secondary: #f5f5f5;
+}
