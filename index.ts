@@ -10,7 +10,6 @@ import routes from './routes/routes';
 const app = express();
 
 // handlebars stuff
-app.engine('handlebars', engine());
 app.engine(
 	'hbs',
 	engine({

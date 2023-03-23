@@ -8,8 +8,8 @@
 
 body {
 	font-family: 'Open Sans', 'Roboto', sans-serif;
-	color: var(--text-primary);
-	background-color: var(--bg-primary);
+	color: var(--primary-text);
+	background-color: var(--primary-bg);
 }
 
 button {
@@ -20,9 +20,31 @@ button {
 }
 
 :root {
-	--text-primary: #111;
-	--text-secondary: #777;
+	color-scheme: light;
+	/* static colors */
+	--text-black: #333;
+	--text-white: #fff;
 
-	--bg-primary: #fff;
-	--bg-secondary: #f5f5f5;
+	/* bg colors */
+	--primary-bg: #fff;
+	--secondary-bg: #fafafa;
+
+	/* text colors */
+	--primary-text: #111;
+	--secondary-text: #333;
+	--link-color: #0969da;
 }
+
+/* @media screen and (prefers-color-scheme: dark) {
+	:root {
+		color-scheme: dark;
+		--primary-bg: #0d1117;
+		--secondary-bg: #161b22;
+
+		--primary-text: #fff;
+		--secondary-text: #fafafa;
+
+		--link-color: #58a6ff;
+	}
+	
+} */
