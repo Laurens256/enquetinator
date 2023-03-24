@@ -1,15 +1,14 @@
-{{#each formFields}}
-	<div class="inputlabel">
-		<label for="{{this.name}}">{{this.label}}</label><p>* {{this.error}}Dit is een error maar dan heel lang</p>
-	</div>
-	<input 
-	type="{{this.type}}" 
-	name="{{this.name}}" 
-	id="{{this.name}}" 
-	value="{{this.value}}" 
-	autocomplete="{{this.autocomplete}}" 
-	class="{{spreadAttributes this.classes}}"
-	data-error-msg="{{this.error}}"
-	{{#this.required}}required{{/this.required}}
-	/>
-{{/each}}
+<div class="inputlabel">
+	<label for="{{this.name}}">{{this.label}}</label><p>{{#if (ne '' this.error)}}* {{this.error}}{{/if}}</p>
+</div>
+
+<input 
+type="{{this.type}}" 
+name="{{@key}}" 
+id="{{@key}}" 
+value="{{this.value}}" 
+autocomplete="{{this.autocomplete}}" 
+class="{{spreadAttributes this.classes}}"
+data-error-msg="{{this.error}}"
+{{#this.required}}required{{/this.required}}
+/>

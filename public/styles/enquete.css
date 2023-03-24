@@ -1,0 +1,7 @@
+@import url(./partials/form.css);
+
+main {
+	width: 100%;
+	max-width: 1100px;
+	margin: 0 auto;
+}

@@ -4,7 +4,10 @@
 		<p></p>
 
 		<form method='POST' action='/' novalidate>
-			{{> input formFields=formFields}}
+
+		{{#each formFields}}
+			{{> input formField=@key}}
+		{{/each}}
 
 			<input type='submit' value='send' />
 		</form>

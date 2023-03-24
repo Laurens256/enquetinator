@@ -1,16 +1,10 @@
 import express from 'express';
+import { validateUserData, UserData } from '../utils/handleUserData';
 const router = express.Router();
 
-interface IFormData {
-	name: string;
-	studentnumber: string;
-	email: string;
-}
-
-let formFields = [
-	{
+const formFields = {
+	name: {
 		type: 'text',
-		name: 'name',
 		label: 'Naam',
 		autocomplete: 'name',
 		classes: ['form-control'],
@@ -18,9 +12,8 @@ let formFields = [
 		value: '',
 		error: ''
 	},
-	{
+	studentnumber: {
 		type: 'number',
-		name: 'studentnumber',
 		label: 'Studentnummer',
 		autocomplete: 'off',
 		classes: ['form-control', 'nog-een-class'],
@@ -28,9 +21,8 @@ let formFields = [
 		value: '',
 		error: ''
 	},
-	{
+	email: {
 		type: 'email',
-		name: 'email',
 		label: 'Email',
 		autocomplete: 'email',
 		classes: ['form-control'],
@@ -38,23 +30,23 @@ let formFields = [
 		value: '',
 		error: ''
 	}
-];
+};
 
 router.post('/', async (req, res) => {
-	const formData: IFormData = req.body;
-	const errors = validateForm(formData);
+	const formData: UserData = req.body;
+	const { errors, hasError } = validateUserData(formData);
 
-	if (errors.name || errors.studentnumber || errors.email) {
-		// loop through formFields and set the value and error
-		formFields.forEach((field) => {
-			if (formData.hasOwnProperty(field.name)) {
-				field.value = formData[field.name as keyof IFormData];
+	if (hasError) {
+		// set values and errors as needed
+		for (const [key, obj] of Object.entries(formFields)) {
+			if (formData.hasOwnProperty(key)) {
+				obj.value = formData[key as keyof UserData];
 			}
 
-			if (errors.hasOwnProperty(field.name)) {
-				field.error = errors[field.name as keyof IFormData];
+			if (errors.hasOwnProperty(key)) {
+				obj.error = errors[key as keyof UserData];
 			}
-		});
+		}
 
 		res.render('home', {
 			css: ['home'],
@@ -62,7 +54,7 @@ router.post('/', async (req, res) => {
 			errors
 		});
 	} else {
-		res.send('ok');
+		res.redirect('/enquete');
 	}
 });
 
@@ -72,43 +64,5 @@ router.get('/', async (req, res) => {
 		formFields
 	});
 });
-
-// regex for validating email
-const emailRegex =
-	/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const studentNrRegex = /^[0-9]{9}$/;
-
-const validateForm = (formData: IFormData) => {
-	const errors = {
-		name: '',
-		studentnumber: '',
-		email: ''
-	};
-	const { name, studentnumber, email } = formData;
-
-	if (name === '') {
-		errors.name = 'Naam is verplicht';
-	} else {
-		errors.name = '';
-	}
-
-	if (email === '') {
-		errors.email = 'Email is verplicht';
-	} else if (!emailRegex.test(formData.email)) {
-		errors.email = 'Email is niet geldig';
-	} else {
-		errors.email = '';
-	}
-
-	if (studentnumber === '') {
-		errors.studentnumber = 'Studentnummer is verplicht';
-	} else if (!studentNrRegex.test(formData.studentnumber)) {
-		errors.studentnumber = 'Studentnummer is niet geldig';
-	} else {
-		errors.studentnumber = '';
-	}
-
-	return errors;
-};
 
 export default router;
