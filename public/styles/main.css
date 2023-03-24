@@ -33,6 +33,9 @@ button {
 	--primary-text: #111;
 	--secondary-text: #333;
 	--link-color: #0969da;
+
+	/* input colors */
+	--radio-selected: #0969da;
 }
 
 /* @media screen and (prefers-color-scheme: dark) {

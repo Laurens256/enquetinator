@@ -5,9 +5,9 @@
 
 		<form method='POST' action='/' novalidate>
 
-		{{#each formFields}}
-			{{> input formField=@key}}
-		{{/each}}
+		{{!-- {{#each formFields}} --}}
+			{{> input formFields=formFields}}
+		{{!-- {{/each}} --}}
 
 			<input type='submit' value='send' />
 		</form>

@@ -1,0 +1,58 @@
+/* zorgt ervoor dat de pijltjes niet worden getoond voor number input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	display: none;
+}
+
+input[type='number'] {
+	appearance: textfield;
+}
+
+/* ----------------- */
+/*     text input    */
+/* ----------------- */
+input[type='number'],
+input[type='text'],
+input[type='email'] {
+	display: block;
+	padding: 0.5rem;
+	border: 2px solid #ccc;
+}
+
+input[type='submit'] {
+	display: block;
+	padding: 0.5rem;
+	border: 2px solid #ccc;
+	background: #ccc;
+	cursor: pointer;
+}
+
+
+/* ----------------- */
+/*   error message   */
+/* ----------------- */
+input[type='number']:not([data-error-msg='']),
+input[type='text']:not([data-error-msg='']),
+input[type='email']:not([data-error-msg='']) {
+	border: 2px solid red;
+}
+
+div.inputlabel {
+	display: flex;
+	gap: 1rem;
+	align-items: end;
+}
+
+div.inputlabel p {
+	color: red;
+	font-size: 0.85rem;
+}
+
+@media screen and (max-width: 500px) {
+	div.inputlabel {
+		flex-direction: column;
+		gap: 0;
+		align-items: start;
+	}
+
+}

@@ -1,16 +1,35 @@
 import express from 'express';
 const router = express.Router();
 
-const subjects = [
-	'CSS To The Rescue',
-	'Web App From Scratch',
-	'Project 1',
-	'Browser Technologies',
-	'Progressive Web Apps',
-	'Weekly Nerd'
-];
+const formFields = {
+	name: {
+		type: 'text',
+		label: 'Naam',
+		autocomplete: 'name',
+		required: true,
+		value: '',
+		error: ''
+	},
 
-const formFields = {};
+	semester: {
+		type: 'radio',
+		label: 'In welk semester heb je dit vak gevolgd?',
+		required: true,
+		error: '',
+		options: {
+			1: { label: '1', value: '1', id: 'semester-1' },
+			2: { label: '2', value: '2', id: 'semester-2' },
+			3: { label: '3', value: '3', id: 'semester-3' },
+			4: { label: '4', value: '4', id: 'semester-4' },
+			5: { label: '5', value: '5', id: 'semester-5' },
+			6: { label: '6', value: '6', id: 'semester-6' },
+			7: { label: '7', value: '7', id: 'semester-7' },
+			8: { label: '8', value: '8', id: 'semester-8' },
+			9: { label: '9', value: '9', id: 'semester-9' },
+			10: { label: '10', value: '10', id: 'semester-10' },
+		}
+	}
+};
 
 router.post('/', (req, res) => {
 	console.log(req.body);
@@ -20,7 +39,8 @@ router.post('/', (req, res) => {
 
 router.get('/', (req, res) => {
 	res.render('enquete', {
-		css: ['enquete']
+		css: ['enquete', 'partials/inputs/text', 'partials/inputs/radio'],
+		formFields
 	});
 });
 

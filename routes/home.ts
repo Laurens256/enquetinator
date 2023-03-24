@@ -32,6 +32,8 @@ const formFields = {
 	}
 };
 
+
+const css = ['home', 'partials/inputs/text'];
 router.post('/', async (req, res) => {
 	const formData: UserData = req.body;
 	const { errors, hasError } = validateUserData(formData);
@@ -49,7 +51,7 @@ router.post('/', async (req, res) => {
 		}
 
 		res.render('home', {
-			css: ['home'],
+			css: css,
 			formFields,
 			errors
 		});
@@ -60,7 +62,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
 	res.render('home', {
-		css: ['home'],
+		css: css,
 		formFields
 	});
 });
