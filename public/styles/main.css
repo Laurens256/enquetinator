@@ -32,6 +32,7 @@ button {
 	/* text colors */
 	--primary-text: #111;
 	--secondary-text: #333;
+	--inverted-text: #fff;
 	--link-color: #0969da;
 
 	/* input colors */
@@ -46,6 +47,7 @@ button {
 
 		--primary-text: #fff;
 		--secondary-text: #fafafa;
+		--inverted-text: #111;
 
 		--link-color: #58a6ff;
 	}

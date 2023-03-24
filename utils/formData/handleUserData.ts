@@ -1,4 +1,4 @@
-type UserData = {
+type FormUserData = {
 	name: string;
 	studentnumber: string;
 	email: string;
@@ -9,13 +9,19 @@ const emailRegex =
 	/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const studentNrRegex = /^[0-9]{9}$/;
 
-const validateUserData = (formData: UserData) => {
+const validateUserData = (formData: FormUserData) => {
 	const errors = {
 		name: '',
 		studentnumber: '',
 		email: ''
 	};
-	const { name, studentnumber, email } = formData;
+
+	let { name, studentnumber, email } = formData;
+
+	name = name.trim();
+	studentnumber = studentnumber.trim();
+	email = email.trim();
+
 
 	if (name === '') {
 		errors.name = 'Naam is verplicht';
@@ -41,7 +47,7 @@ const validateUserData = (formData: UserData) => {
 
 	const hasError = Object.values(errors).some((error) => error !== '');
 
-	return {errors, hasError};
+	return { errors, hasError };
 };
 
-export { UserData, validateUserData };
+export { FormUserData, validateUserData };

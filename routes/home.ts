@@ -1,5 +1,6 @@
 import express from 'express';
-import { validateUserData, UserData } from '../utils/handleUserData';
+import { validateUserData, FormUserData } from '../utils/formData/handleUserData';
+import { saveUserData, userData } from '../utils/formData/saveFormData';
 const router = express.Router();
 
 const formFields = {
@@ -35,18 +36,18 @@ const formFields = {
 
 const css = ['home', 'partials/inputs/text'];
 router.post('/', async (req, res) => {
-	const formData: UserData = req.body;
+	const formData: FormUserData = req.body;
 	const { errors, hasError } = validateUserData(formData);
 
 	if (hasError) {
 		// set values and errors as needed
 		for (const [key, obj] of Object.entries(formFields)) {
 			if (formData.hasOwnProperty(key)) {
-				obj.value = formData[key as keyof UserData];
+				obj.value = formData[key as keyof FormUserData];
 			}
 
 			if (errors.hasOwnProperty(key)) {
-				obj.error = errors[key as keyof UserData];
+				obj.error = errors[key as keyof FormUserData];
 			}
 		}
 
@@ -56,6 +57,16 @@ router.post('/', async (req, res) => {
 			errors
 		});
 	} else {
+		saveUserData(formData);
+
+		// set the saved values to be default and remove errors
+		for (const [key, obj] of Object.entries(formFields)) {
+			if(userData.hasOwnProperty(key)) {
+				obj.value = String(userData[key as keyof typeof userData]);
+			}
+			obj.error = '';
+		}
+
 		res.redirect('/enquete');
 	}
 });
@@ -63,7 +74,8 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
 	res.render('home', {
 		css: css,
-		formFields
+		formFields,
+		userData
 	});
 });
 

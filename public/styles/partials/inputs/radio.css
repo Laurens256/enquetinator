@@ -9,10 +9,6 @@ section.radiosection > div {
 	margin: 0 auto;
 }
 
-/* section.radiosection div {
-	
-} */
-
 section.radiosection input {
 	position: fixed;
 	opacity: 0;
@@ -28,8 +24,8 @@ section.radiosection label {
 	width: calc(2ch + 1.4rem + 4px);
 	text-align: center;
 	border-radius: 10px;
-	border: 2px solid #fff;
-	transition: all .2s ease-in-out;
+	border: 2px solid var(--inverted-text);
+	transition: border-color .2s ease-in-out;
 }
 
 section.radiosection input:focus-visible + label,
