@@ -1,12 +1,13 @@
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    display: none;
+@import url(./partials/form.css);
+
+main {
+	width: 100%;
+	max-width: 1100px;
+	margin: 0 auto;
+	position: relative;
 }
 
-input[type=number] {
-	appearance: textfield;
-}
-
-input.error {
-	background: red;
-}
+/* main label {
+	display: block;
+	margin: 0.5rem 0 0.2rem;
+} */
