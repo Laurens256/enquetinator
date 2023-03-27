@@ -1,12 +1,29 @@
 import express from 'express';
 const router = express.Router();
 
+const subjects = [
+	'CSS To The Rescue',
+	'Web App From Scratch',
+	'Project 1',
+	'Browser Technologies',
+	'Progressive Web App'
+];
+
+const subjectsUri = [
+	'css-to-the-rescue',
+	'web-app-from-scratch',
+	'project-1',
+	'browser-technologies',
+	'progressive-web-app'
+];
+
 const formFields = {
-	name: {
+	subject: {
 		type: 'text',
-		label: 'Naam',
-		autocomplete: 'name',
+		label: 'Vak',
+		autocomplete: 'off',
 		required: true,
+		disabled: true,
 		value: '',
 		error: ''
 	},
@@ -26,7 +43,7 @@ const formFields = {
 			7: { label: '7', value: '7', id: 'semester-7' },
 			8: { label: '8', value: '8', id: 'semester-8' },
 			9: { label: '9', value: '9', id: 'semester-9' },
-			10: { label: '10', value: '10', id: 'semester-10' },
+			10: { label: '10', value: '10', id: 'semester-10' }
 		}
 	}
 };
@@ -38,6 +55,17 @@ router.post('/', (req, res) => {
 });
 
 router.get('/', (req, res) => {
+	let subject = req.query.vak;
+	if (
+		!(typeof subject === 'string' && subjectsUri.includes(subject)) ||
+		typeof subject !== 'string'
+	) {
+		subject = subjectsUri[0];
+		res.redirect(`${req.baseUrl}?vak=${subject}`);
+	}
+
+	formFields.subject.value = subject;
+
 	res.render('enquete', {
 		css: ['enquete', 'partials/inputs/text', 'partials/inputs/radio'],
 		formFields

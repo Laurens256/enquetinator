@@ -11,6 +11,7 @@
 						name="{{@../key}}"
 						id="{{this.id}}"
 						value="{{this.value}}"
+						{{#this.disabled}}disabled{{/this.disabled}}
 						{{#../this.required}}required{{/../this.required}}
 					/>
 					<label for="{{this.id}}">{{this.label}}</label>
@@ -31,6 +32,7 @@
 			value="{{this.value}}"
 			autocomplete="{{this.autocomplete}}"
 			data-error-msg="{{this.error}}"
+			{{#this.disabled}}disabled{{/this.disabled}}
 			{{#this.required}}required{{/this.required}}
 		/>
 
