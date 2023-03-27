@@ -2,15 +2,15 @@ import { FormUserData } from './handleUserData';
 import { FormEnqueteData } from './handleEnqueteData';
 
 // anders dan form user data omdat studentnumber type number moet zijn
-let userData: {
+let globalUserData: {
 	name: string;
 	studentnumber: number;
 	email: string;
 };
 
-let chosenSemester: 1 | 2;
+let globalChosenSemester: 1 | 2;
 
-let subjectData: {
+let globalEnqueteData: {
 	[subject: string]: {
 		teachers: any;
 		semester: 1 | 2;
@@ -24,9 +24,9 @@ let subjectData: {
 const saveUserData = (FormUserData: FormUserData) => {
 	const { name, studentnumber, email } = FormUserData;
 
-	userData.name = name;
-	userData.studentnumber = Number(studentnumber);
-	userData.email = email;
+	globalUserData.name = name;
+	globalUserData.studentnumber = Number(studentnumber);
+	globalUserData.email = email;
 };
 
 const saveSubjectData = (subject: string, data: FormEnqueteData) => {
@@ -39,7 +39,7 @@ const saveSubjectData = (subject: string, data: FormEnqueteData) => {
 		understanding_rating
 	} = data;
 
-	subjectData[subject] = [
+	globalEnqueteData[subject] = [
 		{
 			teachers: teachers,
 			semester: Number(semester) as 1 | 2,
@@ -49,7 +49,13 @@ const saveSubjectData = (subject: string, data: FormEnqueteData) => {
 			understanding_rating: Number(understanding_rating)
 		}
 	];
-	chosenSemester = Number(semester) as 1 | 2;
+	globalChosenSemester = Number(semester) as 1 | 2;
 };
 
-export { saveUserData, userData, saveSubjectData, subjectData, chosenSemester };
+export {
+	saveUserData,
+	globalUserData,
+	saveSubjectData,
+	globalEnqueteData,
+	globalChosenSemester
+};

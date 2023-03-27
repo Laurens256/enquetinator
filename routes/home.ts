@@ -1,6 +1,6 @@
 import express from 'express';
 import { validateUserData, FormUserData } from '../utils/formData/handleUserData';
-import { saveUserData, userData } from '../utils/formData/saveFormData';
+import { saveUserData, globalUserData } from '../utils/formData/saveFormData';
 const router = express.Router();
 
 const formFields = {
@@ -61,8 +61,8 @@ router.post('/', async (req, res) => {
 
 		// set the saved values to be default and remove errors
 		for (const [key, obj] of Object.entries(formFields)) {
-			if(userData.hasOwnProperty(key)) {
-				obj.value = String(userData[key as keyof typeof userData]);
+			if(globalUserData.hasOwnProperty(key)) {
+				obj.value = String(globalUserData[key as keyof typeof globalUserData]);
 			}
 			obj.error = '';
 		}
@@ -75,7 +75,7 @@ router.get('/', async (req, res) => {
 	res.render('home', {
 		css: css,
 		formFields,
-		userData
+		globalUserData
 	});
 });
 
