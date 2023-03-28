@@ -3,7 +3,7 @@ import {
 	validateEnqueteData,
 	FormEnqueteData
 } from '../utils/formData/validateEnqueteData';
-import { globalEnqueteData, saveSubjectData } from '../utils/formData/saveFormData';
+import { globalEnqueteData, saveSubjectData, globalChosenSemester } from '../utils/formData/saveFormData';
 
 import { FormFields } from '../types';
 
@@ -42,12 +42,20 @@ const formFields: FormFields = {
 	},
 	overall_rating: {
 		type: 'radio',
-		label: 'In welk semester heb je dit vak gevolgd?',
+		label: 'Beoordeling ding',
 		required: true,
 		error: '',
 		options: [
-			{ label: '1', value: '1', id: 'semester-1' },
-			{ label: '2', value: '2', id: 'semester-2' },
+			{ label: '1', value: '1', id: 'overall-1' },
+			{ label: '2', value: '2', id: 'overall-2' },
+			{ label: '3', value: '3', id: 'overall-3' },
+			{ label: '4', value: '4', id: 'overall-4' },
+			{ label: '5', value: '5', id: 'overall-5' },
+			{ label: '6', value: '6', id: 'overall-6' },
+			{ label: '7', value: '7', id: 'overall-7' },
+			{ label: '8', value: '8', id: 'overall-8' },
+			{ label: '9', value: '9', id: 'overall-9' },
+			{ label: '10', value: '10', id: 'overall-10' },
 		]
 	},
 };
@@ -57,7 +65,22 @@ const setDefaultValues = (subject: string) => {
 	for (const [key, obj] of Object.entries(formFields)) {
 		// check if the object is a radio button
 		if (obj.type === 'radio') {
-			// if ('radioButton' in obj) {
+
+			// check if a semester has been chosen
+			if (key === 'semester') {
+				// check if the semester has been saved
+				if (!Number.isNaN(globalChosenSemester)) {
+					obj.options.forEach((option) => {
+						if (option.value !== String(globalChosenSemester)) {
+							option.checked = false;
+						} else {
+							option.checked = true;
+						}
+					});
+				}
+				continue;
+			}
+
 			// check if the subject has data saved
 			const savedData = globalEnqueteData[subject];
 			if (savedData && savedData[key as keyof typeof savedData]) {

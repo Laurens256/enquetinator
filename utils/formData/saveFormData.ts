@@ -8,7 +8,7 @@ const globalUserData = {
 	email: ''
 };
 
-let globalChosenSemester: 1 | 2;
+let globalChosenSemester: number = NaN;
 
 let globalEnqueteData: SaveableEnqueteData = {};
 
@@ -23,6 +23,11 @@ const saveUserData = (formUserData: FormUserData) => {
 const saveSubjectData = (data: SaveableEnqueteData) => {
 	globalEnqueteData = { ...globalEnqueteData, ...data };
 	// console.log(globalEnqueteData);
+
+	if (Number.isNaN(globalChosenSemester)) {
+		const subject = Object.keys(data)[0];
+		globalChosenSemester = data[subject].semester;
+	}
 };
 
 export {
