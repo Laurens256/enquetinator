@@ -36,10 +36,13 @@ button {
 	--link-color: #0969da;
 
 	/* input colors */
-	--radio-selected: #0969da;
+	--radio-bg: #b998f5;
+	--radio-text: #1a1b26;
+	--radio-selected: #98b95c;
+	--radio-border: #0db9d7;
 }
 
-/* @media screen and (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
 	:root {
 		color-scheme: dark;
 		--primary-bg: #0d1117;
@@ -49,7 +52,6 @@ button {
 		--secondary-text: #fafafa;
 		--inverted-text: #111;
 
-		--link-color: #58a6ff;
+		--link-color: #b998f5;
 	}
-	
-} */
+}

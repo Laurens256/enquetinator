@@ -2,11 +2,21 @@
 /*    radio inputs   */
 /* ----------------- */
 section.radiosection > div {
-	display: flex;
-	gap: 1rem;
-	justify-content: space-between;
-	max-width: 650px;
+	--max-width: 650px;
+	--gap: 0.5rem;
+	--columns: 5;
+	display: grid;
+	gap: var(--gap);
+	max-width: var(--max-width);
 	margin: 0 auto;
+	/* zorgt ervoor dat er max n columns worden gemaakt */
+	grid-template-columns: repeat(
+		auto-fit,
+		minmax(
+			calc((var(--max-width) - (calc(var(--columns) - 1) * var(--gap))) / var(--columns)),
+			1fr
+		)
+	);
 }
 
 section.radiosection input {
@@ -16,30 +26,34 @@ section.radiosection input {
 }
 
 section.radiosection label {
-	cursor: pointer;
 	font-size: 1.2rem;
 	user-select: none;
-	padding: .7rem;
+	padding: 0.7rem;
 	display: inline-block;
-	width: calc(2ch + 1.4rem + 4px);
+	width: 100%;
 	text-align: center;
 	border-radius: 10px;
-	border: 2px solid var(--inverted-text);
-	transition: border-color .2s ease-in-out;
+	border: 3px solid var(--inverted-text);
+	background-color: var(--radio-bg);
+	color: var(--radio-text);
+	transition: border-color 0.2s ease-in-out;
+}
+
+section.radiosection input:not(:checked) + label {
+	cursor: pointer;
 }
 
 section.radiosection input:focus-visible + label,
 section.radiosection input:not(:checked) + label:hover {
-	border-color: var(--radio-selected);
+	border-color: var(--radio-border);
 }
 
 section.radiosection input:focus-visible + label {
-	outline: solid 2px var(--radio-selected);
+	outline: solid 2px var(--radio-border);
 	outline-offset: 2px;
 }
 
 section.radiosection input:checked + label {
 	background-color: var(--radio-selected);
-	color: var(--text-white);
-	font-weight: bold;
+	text-shadow: 1px 0 0 currentColor;
 }
