@@ -9,7 +9,6 @@ interface DefaultFormInput {
 }
 
 interface TextField extends DefaultFormInput {
-	textField: true;
 	type: 'text';
 	value: string;
 	autocomplete?: string;
@@ -17,14 +16,13 @@ interface TextField extends DefaultFormInput {
 }
 
 interface RadioButton extends DefaultFormInput {
-	radioButton: true;
 	type: 'radio';
 
 	options: {
 		label: string;
 		value: string;
 		id: string;
-		checked: boolean;
+		checked?: boolean;
 	}[];
 }
 

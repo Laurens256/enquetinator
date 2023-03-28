@@ -21,7 +21,6 @@ const subjectsUri = [
 
 const formFields: FormFields = {
 	subject: {
-		textField: true,
 		type: 'text',
 		label: 'Vak',
 		autocomplete: 'off',
@@ -32,42 +31,53 @@ const formFields: FormFields = {
 	},
 
 	semester: {
-		radioButton: true,
 		type: 'radio',
 		label: 'In welk semester heb je dit vak gevolgd?',
 		required: true,
 		error: '',
 		options: [
-			{ label: '1', value: '1', id: 'semester-1', checked: false },
-			{ label: '2', value: '2', id: 'semester-2', checked: false },
-			{ label: '3', value: '3', id: 'semester-3', checked: false },
-			{ label: '4', value: '4', id: 'semester-4', checked: false },
-			{ label: '5', value: '5', id: 'semester-5', checked: false },
-			{ label: '6', value: '6', id: 'semester-6', checked: false },
-			{ label: '7', value: '7', id: 'semester-7', checked: false },
-			{ label: '8', value: '8', id: 'semester-8', checked: false },
-			{ label: '9', value: '9', id: 'semester-9', checked: false },
-			{ label: '10', value: '10', id: 'semester-10', checked: false }
-		],
-	}
+			{ label: '1', value: '1', id: 'semester-1' },
+			{ label: '2', value: '2', id: 'semester-2' },
+		]
+	},
+	overall_rating: {
+		type: 'radio',
+		label: 'In welk semester heb je dit vak gevolgd?',
+		required: true,
+		error: '',
+		options: [
+			{ label: '1', value: '1', id: 'semester-1' },
+			{ label: '2', value: '2', id: 'semester-2' },
+		]
+	},
 };
 
-
-const checkRadioButton = (formData: FormEnqueteData) => {
+// check the radio button that matches the value of the form data
+const setDefaultValues = (subject: string) => {
 	for (const [key, obj] of Object.entries(formFields)) {
-		// check the radio button that matches the value of the form data
-		if('radioButton' in obj) {
-			obj.options.forEach(option => {
-				option.checked = option.value === formData[key as keyof FormEnqueteData];
-			});
+		// check if the object is a radio button
+		if (obj.type === 'radio') {
+			// if ('radioButton' in obj) {
+			// check if the subject has data saved
+			const savedData = globalEnqueteData[subject];
+			if (savedData && savedData[key as keyof typeof savedData]) {
+				const savedValue = String(savedData[key as keyof typeof savedData]);
+
+				// check if the saved value matches one of the options
+				obj.options.forEach((option) => {
+					if (option.value !== savedValue) {
+						option.checked = false;
+					} else {
+						option.checked = true;
+					}
+				});
+			}
 		}
 	}
 };
 
 router.post('/', (req, res) => {
 	const formData: FormEnqueteData = req.body;
-
-	checkRadioButton(formData);
 
 	const saveableData = validateEnqueteData(formData);
 
@@ -94,9 +104,11 @@ router.get('/', (req, res) => {
 		return res.redirect(`${req.baseUrl}?vak=${subject}`);
 	}
 
-	if('textField' in formFields.subject) {
+	if (formFields.subject.type === 'text') {
 		formFields.subject.value = subject;
 	}
+
+	setDefaultValues(subject);
 
 	res.render('enquete', {
 		css: css,
