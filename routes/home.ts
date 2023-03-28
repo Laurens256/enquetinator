@@ -1,5 +1,5 @@
 import express from 'express';
-import { validateUserData, FormUserData } from '../utils/formData/handleUserData';
+import { validateUserData, FormUserData } from '../utils/formData/validateUserData';
 import { saveUserData, globalUserData } from '../utils/formData/saveFormData';
 const router = express.Router();
 

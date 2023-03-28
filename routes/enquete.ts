@@ -2,12 +2,11 @@ import express from 'express';
 import {
 	validateEnqueteData,
 	FormEnqueteData
-} from '../utils/formData/handleEnqueteData';
-import { globalEnqueteData } from '../utils/formData/saveFormData';
+} from '../utils/formData/validateEnqueteData';
+import { globalEnqueteData, saveSubjectData } from '../utils/formData/saveFormData';
 const router = express.Router();
 
-const css = ['enquete', 'partials/inputs/text', 'partials/inputs/radio']
-
+const css = ['enquete', 'partials/inputs/text', 'partials/inputs/radio'];
 
 const subjectsUri = [
 	'css-to-the-rescue',
@@ -52,9 +51,10 @@ const formFields = {
 
 router.post('/', (req, res) => {
 	const formData: FormEnqueteData = req.body;
-	console.log(formData);
 
-	
+	const saveableData = validateEnqueteData(formData);
+
+	saveSubjectData(saveableData);
 
 	res.send('ok');
 });
