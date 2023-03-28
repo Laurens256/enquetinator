@@ -1,8 +1,4 @@
-type FormUserData = {
-	name: string;
-	studentnumber: string;
-	email: string;
-};
+import { FormUserData } from '../../types';
 
 // regex for validating email
 const emailRegex =

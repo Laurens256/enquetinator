@@ -1,6 +1,9 @@
 import express from 'express';
-import { validateUserData, FormUserData } from '../utils/formData/validateUserData';
-import { saveUserData, globalUserData } from '../utils/formData/saveFormData';
+import { validateUserData} from '../utils/formData/validateUserData';
+import { saveUserData } from '../utils/formData/saveFormData';
+
+import { FormUserData, FormUserErrors  } from '../types';
+
 const router = express.Router();
 
 const css = ['home', 'partials/inputs/text'];
@@ -35,37 +38,38 @@ const formFields = {
 	}
 };
 
+// set default values for the form fields
+const setInputValues = (formData: FormUserData) => {
+	for (const [key, obj] of Object.entries(formFields)) {
+		if (formData.hasOwnProperty(key)) {
+			obj.value = formData[key as keyof FormUserData];
+		}
+	}
+};
+
+// set errors for the form fields
+const setInputErrors = (errors: FormUserErrors) => {
+	for (const [key, obj] of Object.entries(formFields)) {
+		if (errors.hasOwnProperty(key)) {
+			obj.error = errors[key as keyof FormUserData];
+		}
+	}
+};
+
 router.post('/', async (req, res) => {
 	const formData: FormUserData = req.body;
 	const { errors, hasError } = validateUserData(formData);
 
+	setInputValues(formData);
+	setInputErrors(errors);
+
 	if (hasError) {
-		// set values and errors as needed
-		for (const [key, obj] of Object.entries(formFields)) {
-			if (formData.hasOwnProperty(key)) {
-				obj.value = formData[key as keyof FormUserData];
-			}
-
-			if (errors.hasOwnProperty(key)) {
-				obj.error = errors[key as keyof FormUserData];
-			}
-		}
-
 		res.render('home', {
 			css: css,
 			formFields
 		});
 	} else {
 		saveUserData(formData);
-
-		// set the saved values to be default and remove errors
-		for (const [key, obj] of Object.entries(formFields)) {
-			if(globalUserData.hasOwnProperty(key)) {
-				obj.value = String(globalUserData[key as keyof typeof globalUserData]);
-			}
-			obj.error = '';
-		}
-
 		res.redirect('/enquete');
 	}
 });
@@ -73,8 +77,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
 	res.render('home', {
 		css: css,
-		formFields,
-		globalUserData
+		formFields
 	});
 });
 

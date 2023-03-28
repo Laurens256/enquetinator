@@ -56,7 +56,15 @@ router.post('/', (req, res) => {
 
 	saveSubjectData(saveableData);
 
-	res.send('ok');
+	// Redirect to next subject
+	const nextSubject = subjectsUri[subjectsUri.indexOf(formData.subject) + 1];
+	console.log(nextSubject);
+
+	if (nextSubject) {
+		res.redirect(`${req.baseUrl}?vak=${nextSubject}`);
+	} else {
+		res.redirect(`${req.baseUrl}/overview`);
+	}
 });
 
 router.get('/', (req, res) => {

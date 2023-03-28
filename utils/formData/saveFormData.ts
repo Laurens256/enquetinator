@@ -22,7 +22,7 @@ const saveUserData = (formUserData: FormUserData) => {
 
 const saveSubjectData = (data: SaveableEnqueteData) => {
 	globalEnqueteData = { ...globalEnqueteData, ...data };
-	console.log(globalEnqueteData);
+	// console.log(globalEnqueteData);
 };
 
 export {
