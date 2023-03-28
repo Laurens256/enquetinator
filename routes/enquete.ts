@@ -4,6 +4,9 @@ import {
 	FormEnqueteData
 } from '../utils/formData/validateEnqueteData';
 import { globalEnqueteData, saveSubjectData } from '../utils/formData/saveFormData';
+
+import { FormFields } from '../types';
+
 const router = express.Router();
 
 const css = ['enquete', 'partials/inputs/text', 'partials/inputs/radio'];
@@ -16,7 +19,7 @@ const subjectsUri = [
 	'progressive-web-app'
 ];
 
-const formFields = {
+const formFields: FormFields = {
 	subject: {
 		textField: true,
 		type: 'text',
@@ -45,12 +48,26 @@ const formFields = {
 			{ label: '8', value: '8', id: 'semester-8', checked: false },
 			{ label: '9', value: '9', id: 'semester-9', checked: false },
 			{ label: '10', value: '10', id: 'semester-10', checked: false }
-		]
+		],
+	}
+};
+
+
+const checkRadioButton = (formData: FormEnqueteData) => {
+	for (const [key, obj] of Object.entries(formFields)) {
+		// check the radio button that matches the value of the form data
+		if('radioButton' in obj) {
+			obj.options.forEach(option => {
+				option.checked = option.value === formData[key as keyof FormEnqueteData];
+			});
+		}
 	}
 };
 
 router.post('/', (req, res) => {
 	const formData: FormEnqueteData = req.body;
+
+	checkRadioButton(formData);
 
 	const saveableData = validateEnqueteData(formData);
 
@@ -58,12 +75,11 @@ router.post('/', (req, res) => {
 
 	// Redirect to next subject
 	const nextSubject = subjectsUri[subjectsUri.indexOf(formData.subject) + 1];
-	console.log(nextSubject);
-
 	if (nextSubject) {
 		res.redirect(`${req.baseUrl}?vak=${nextSubject}`);
 	} else {
-		res.redirect(`${req.baseUrl}/overview`);
+		res.redirect(`${req.baseUrl}?vak=${subjectsUri[0]}`);
+		// res.redirect(`${req.baseUrl}/overview`);
 	}
 });
 
@@ -78,7 +94,9 @@ router.get('/', (req, res) => {
 		return res.redirect(`${req.baseUrl}?vak=${subject}`);
 	}
 
-	formFields.subject.value = subject;
+	if('textField' in formFields.subject) {
+		formFields.subject.value = subject;
+	}
 
 	res.render('enquete', {
 		css: css,
