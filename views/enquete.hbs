@@ -1,6 +1,6 @@
 <main>
 	<div class='form-container'>
-		<form method='POST' action='/enquete' autocomplete='off' name="form-naam">
+		<form method='POST' action='/enquete' autocomplete='off' novalidate>
 
 			{{> input formFields=formFields}}
 
@@ -8,3 +8,13 @@
 		</form>
 	</div>
 </main>
+
+<script>
+	const form = document.querySelector('form');
+
+	form.addEventListener('submit', (e) => {
+		//e.preventDefault();
+
+		console.log('submitted');
+	});
+</script>

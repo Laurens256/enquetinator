@@ -6,6 +6,9 @@ import {
 import { globalEnqueteData } from '../utils/formData/saveFormData';
 const router = express.Router();
 
+const css = ['enquete', 'partials/inputs/text', 'partials/inputs/radio']
+
+
 const subjectsUri = [
 	'css-to-the-rescue',
 	'web-app-from-scratch',
@@ -49,24 +52,28 @@ const formFields = {
 
 router.post('/', (req, res) => {
 	const formData: FormEnqueteData = req.body;
+	console.log(formData);
+
+	
 
 	res.send('ok');
 });
 
 router.get('/', (req, res) => {
+	// Check if subject is valid and redirect if not
 	let subject = req.query.vak;
 	if (
 		!(typeof subject === 'string' && subjectsUri.includes(subject)) ||
 		typeof subject !== 'string'
 	) {
 		subject = subjectsUri[0];
-		res.redirect(`${req.baseUrl}?vak=${subject}`);
+		return res.redirect(`${req.baseUrl}?vak=${subject}`);
 	}
 
 	formFields.subject.value = subject;
 
 	res.render('enquete', {
-		css: ['enquete', 'partials/inputs/text', 'partials/inputs/radio'],
+		css: css,
 		formFields
 	});
 });

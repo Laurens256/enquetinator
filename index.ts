@@ -26,7 +26,6 @@ app.set('views', './views');
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// body parser
 app.use(express.json(), express.urlencoded({extended: true}));
 
 routes.forEach((route) => {

@@ -3,6 +3,8 @@ import { validateUserData, FormUserData } from '../utils/formData/handleUserData
 import { saveUserData, globalUserData } from '../utils/formData/saveFormData';
 const router = express.Router();
 
+const css = ['home', 'partials/inputs/text'];
+
 const formFields = {
 	name: {
 		type: 'text',
@@ -10,7 +12,7 @@ const formFields = {
 		autocomplete: 'name',
 		classes: ['form-control'],
 		required: true,
-		value: '',
+		value: 'a',
 		error: ''
 	},
 	studentnumber: {
@@ -19,7 +21,7 @@ const formFields = {
 		autocomplete: 'off',
 		classes: ['form-control', 'nog-een-class'],
 		required: true,
-		value: '',
+		value: '123456789',
 		error: ''
 	},
 	email: {
@@ -28,13 +30,11 @@ const formFields = {
 		autocomplete: 'email',
 		classes: ['form-control'],
 		required: true,
-		value: '',
+		value: 'ddsfs@gsdfd.co',
 		error: ''
 	}
 };
 
-
-const css = ['home', 'partials/inputs/text'];
 router.post('/', async (req, res) => {
 	const formData: FormUserData = req.body;
 	const { errors, hasError } = validateUserData(formData);
@@ -53,8 +53,7 @@ router.post('/', async (req, res) => {
 
 		res.render('home', {
 			css: css,
-			formFields,
-			errors
+			formFields
 		});
 	} else {
 		saveUserData(formData);

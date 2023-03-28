@@ -2,10 +2,10 @@ import { FormUserData } from './handleUserData';
 import { FormEnqueteData } from './handleEnqueteData';
 
 // anders dan form user data omdat studentnumber type number moet zijn
-let globalUserData: {
-	name: string;
-	studentnumber: number;
-	email: string;
+const globalUserData = {
+	name: '',
+	studentnumber: NaN,
+	email: ''
 };
 
 let globalChosenSemester: 1 | 2;
@@ -19,10 +19,11 @@ let globalEnqueteData: {
 		explanation_rating: number;
 		understanding_rating: number;
 	}[];
-};
+} = {};
 
-const saveUserData = (FormUserData: FormUserData) => {
-	const { name, studentnumber, email } = FormUserData;
+const saveUserData = (formUserData: FormUserData) => {
+	console.log(formUserData);
+	const { name, studentnumber, email } = formUserData;
 
 	globalUserData.name = name;
 	globalUserData.studentnumber = Number(studentnumber);
