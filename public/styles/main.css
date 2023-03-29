@@ -43,7 +43,7 @@ button {
 }
 
 @media screen and (prefers-color-scheme: dark) {
-	:root {
+	/* :root {
 		color-scheme: dark;
 		--primary-bg: #0d1117;
 		--secondary-bg: #161b22;
@@ -53,5 +53,5 @@ button {
 		--inverted-text: #111;
 
 		--link-color: #b998f5;
-	}
+	} */
 }

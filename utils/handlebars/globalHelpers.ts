@@ -11,6 +11,16 @@ export default {
 		}
 	},
 
+	subjectName: (subject: string) => {
+		if (subject) {
+			if(subject === 'css-to-the-rescue') {
+				return 'CSS to the rescue';
+			}
+			return subject.replace(/-/g, ' ');
+		}
+		return 'Onbekend vak';
+	},
+
 	eq: function() { return reduceOp(arguments, (a: any, b: any) => a === b); },
 	ne: function() { return reduceOp(arguments, (a: any, b: any) => a !== b); },
 	lt: function() { return reduceOp(arguments, (a: number, b: number) => a  <  b); },

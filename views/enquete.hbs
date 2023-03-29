@@ -1,5 +1,9 @@
 <main>
 	<div class='form-container'>
+		<header>
+			<h1>{{subjectName formFields.subject.value}}</h1>
+		</header>
+		
 		<form method='POST' action='/enquete' autocomplete='off' novalidate>
 
 			{{> input formFields=formFields}}

@@ -1,6 +1,11 @@
 /* ----------------- */
 /*    radio inputs   */
 /* ----------------- */
+section.radiosection {
+	padding: 2.5rem 0;
+	border-bottom: red solid 2px;
+}
+
 section.radiosection > div {
 	display: grid;
 	gap: var(--gap);

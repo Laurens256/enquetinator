@@ -1,21 +1,29 @@
 {{#each formFields}}
 
-	{{#if (eq this.type 'radio')}}
+	{{#if (eq @key 'subject')}}
+		<label class="readonly">{{this.label}}
+			<input 
+				type="{{this.type}}"
+				name="{{@key}}"
+				value="{{this.value}}"
+				{{#this.readonly}}readonly{{/this.readonly}}
+			/>
+		</label>
+
+	{{else if (eq this.type 'radio')}}
 		<section class="radiosection">
 			<h2>{{this.label}}</h2>
 			<div>
 			{{#each this.options}}
-				<div>
-					<input 
-						type="{{../this.type}}"
-						name="{{@../key}}"
-						id="{{this.id}}"
-						value="{{this.value}}"
-						{{#this.checked}}checked{{/this.checked}}
-						{{#../this.required}}required{{/../this.required}}
-					/>
-					<label for="{{this.id}}">{{this.label}}</label>
-				</div>
+				<input 
+					type="{{../this.type}}"
+					name="{{@../key}}"
+					id="{{this.id}}"
+					value="{{this.value}}"
+					{{#this.checked}}checked{{/this.checked}}
+					{{#../this.required}}required{{/../this.required}}
+				/>
+				<label for="{{this.id}}">{{this.label}}</label>
 			{{/each}}
 			</div>
 		</section>
@@ -38,7 +46,6 @@
 			value="{{this.value}}"
 			autocomplete="{{this.autocomplete}}"
 			data-error-msg="{{this.error}}"
-			{{#this.readonly}}readonly{{/this.readonly}}
 			{{#this.required}}required{{/this.required}}
 		/>
 

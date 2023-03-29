@@ -13,7 +13,7 @@ import { FormFields } from '../types';
 
 const router = express.Router();
 
-const css = ['enquete', 'partials/inputs/text', 'partials/inputs/radio'];
+const css = ['partials/form', 'partials/inputs/text', 'partials/inputs/radio'];
 
 const subjectsUri = [
 	'css-to-the-rescue',
@@ -25,10 +25,10 @@ const subjectsUri = [
 
 // check the radio button that matches the value of the form data
 const setDefaultValues = (subject: string) => {
-	console.log(subject);
 	for (const [key, obj] of Object.entries(formFields)) {
 		// check if the object is a radio button
 		if (obj.type === 'radio') {
+
 			if (key === 'semester') {
 				// check if the semester has been saved
 				if (!Number.isNaN(globalChosenSemester)) {
@@ -41,7 +41,6 @@ const setDefaultValues = (subject: string) => {
 					});
 				}
 				continue;
-				// check if the object is a submit button and set the value
 			}
 
 			// check if the subject has data saved
@@ -58,6 +57,7 @@ const setDefaultValues = (subject: string) => {
 					}
 				});
 			}
+
 		} else if (obj.type === 'submit') {
 			if ('value' in formFields.submit) {
 				if (subject === subjectsUri[subjectsUri.length - 1]) {
@@ -169,6 +169,6 @@ const formFields: FormFields = {
 	},
 	submit: {
 		type: 'submit',
-		value: 'Volgende'
+		value: ''
 	}
 };
