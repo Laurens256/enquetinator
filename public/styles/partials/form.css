@@ -1,3 +1,5 @@
+@import url('./inputs/submit.css');
+
 div.form-container {
 	width: 100%;
 }
@@ -10,8 +12,10 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: cyan;
+	background-color: var(--header-bg);
+	color: var(--text-white);
 	position: sticky;
+	z-index: 3;
 	top: var(--header-top);
 	height: var(--header-height);
 	/* shoutout github copilot */
@@ -29,7 +33,7 @@ header h1 {
 div.form-container form {
 	width: 95%;
 	max-width: 1100px;
-	margin: 0 auto;
+	margin: 0 auto 5rem;
 }
 
 input {

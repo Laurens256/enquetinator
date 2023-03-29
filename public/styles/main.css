@@ -27,7 +27,8 @@ button {
 
 	/* bg colors */
 	--primary-bg: #fff;
-	--secondary-bg: #fafafa;
+	--header-bg: #256baf;
+	--input-divider: #3859c7;
 
 	/* text colors */
 	--primary-text: #111;
@@ -36,22 +37,38 @@ button {
 	--link-color: #0969da;
 
 	/* input colors */
-	--radio-bg: #b998f5;
-	--radio-text: #1a1b26;
+	--radio-bg: #56addb;
+	--radio-text: #111;
 	--radio-selected: #98b95c;
 	--radio-border: #0db9d7;
 }
 
 @media screen and (prefers-color-scheme: dark) {
-	/* :root {
+	:root {
 		color-scheme: dark;
-		--primary-bg: #0d1117;
-		--secondary-bg: #161b22;
+		--primary-bg: #1a1b26;
+		--input-divider: #bb9af7;
 
 		--primary-text: #fff;
 		--secondary-text: #fafafa;
 		--inverted-text: #111;
 
-		--link-color: #b998f5;
-	} */
+		--link-color: #3976cb;
+	}
+}
+
+.underline {
+	position: relative;
+}
+
+.underline::after {
+	content: '';
+	position: absolute;
+	width: 2.5ch;
+	height: 2px;
+	bottom: .5em;
+	left: 50%;
+	transform: translateX(-50%) scale(0);
+	background-color: currentColor;
+	transition: transform 0.2s ease-in-out;
 }

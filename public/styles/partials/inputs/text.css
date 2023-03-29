@@ -19,14 +19,6 @@ input[type='email'] {
 	border: 2px solid #ccc;
 }
 
-input[type='submit'] {
-	display: block;
-	padding: 0.5rem;
-	border: 2px solid #ccc;
-	background: #ccc;
-	cursor: pointer;
-}
-
 
 /* ----------------- */
 /*   error message   */

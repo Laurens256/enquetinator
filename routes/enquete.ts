@@ -18,9 +18,11 @@ const css = ['partials/form', 'partials/inputs/text', 'partials/inputs/radio'];
 const subjectsUri = [
 	'css-to-the-rescue',
 	'web-app-from-scratch',
-	'project-1',
 	'browser-technologies',
-	'progressive-web-app'
+	'progressive-web-app',
+	'realtime-web',
+	'human-centered-design',
+	'meesterproef'
 ];
 
 // check the radio button that matches the value of the form data
@@ -134,6 +136,7 @@ const formFields: FormFields = {
 	},
 	semester: {
 		type: 'radio',
+		classes: ['underline'],
 		label: `In welk semester heb je dit vak gevolgd?`,
 		required: true,
 		error: '',
@@ -141,34 +144,40 @@ const formFields: FormFields = {
 	},
 	overall_rating: {
 		type: 'radio',
-		label: 'Hoe zou je dit dit vak in het algemeen beoordelen? 0 = zeer slecht, 10 = zeer goed',
+		classes: ['underline'],
+		label: 'Hoe zou je dit vak in het algemeen beoordelen? <br>0 = zeer slecht, 10 = zeer goed.',
 		required: true,
 		error: '',
 		options: generateRadioOptions('overall')
 	},
 	difficulty_rating: {
 		type: 'radio',
-		label: 'Hoe moeilijk vond je dit vak? 0 = te makkelijk, 10 = te moeilijk',
+		classes: ['underline'],
+		label: 'Hoe moeilijk vond je dit vak? <br>0 = te makkelijk, 10 = te moeilijk.',
 		required: true,
 		error: '',
 		options: generateRadioOptions('difficulty')
 	},
 	explanation_rating: {
 		type: 'radio',
-		label: 'Hoe duidelijk vond je de uitleg van dit vak? 0 = niet duidelijk, 10 = zeer duidelijk',
+		classes: ['underline'],
+		label: 'Hoe duidelijk vond je de uitleg van dit vak? <br>0 = niet duidelijk, 10 = zeer duidelijk.',
 		required: true,
 		error: '',
 		options: generateRadioOptions('explanation')
 	},
 	understanding_rating: {
 		type: 'radio',
-		label: 'Hoe goed begreep je dit vak? 0 = niet goed, 10 = zeer goed',
+		classes: ['underline'],
+		label: 'Hoe goed begreep je dit vak? <br>0 = niet goed, 10 = zeer goed.',
 		required: true,
 		error: '',
 		options: generateRadioOptions('understanding')
 	},
 	submit: {
 		type: 'submit',
-		value: ''
+		value: '',
+		classes: ['underline'],
+		resetable: true
 	}
 };

@@ -12,7 +12,7 @@
 
 	{{else if (eq this.type 'radio')}}
 		<section class="radiosection">
-			<h2>{{this.label}}</h2>
+			<h2>{{{this.label}}}</h2>
 			<div>
 			{{#each this.options}}
 				<input 
@@ -23,16 +23,30 @@
 					{{#this.checked}}checked{{/this.checked}}
 					{{#../this.required}}required{{/../this.required}}
 				/>
-				<label for="{{this.id}}">{{this.label}}</label>
+				<label for="{{this.id}}" class="{{spreadAttributes ../this.classes}}">{{this.label}}</label>
 			{{/each}}
 			</div>
 		</section>
 
 	{{else if (eq this.type 'submit')}}
-		<input 
-			type="{{this.type}}"
-			value="{{this.value}}"
-		/>
+		<section class="submitsection">
+			{{#if this.resetable}}
+				{{!-- <input 
+					type="reset"
+					value="Velden legen"
+					class="{{spreadAttributes this.classes}}"
+				/> --}}
+				<button type="reset" class="{{spreadAttributes this.classes}}">Velden legen
+
+				</button>
+			{{/if}}
+			{{!-- <input 
+				type="{{this.type}}"
+				value="{{this.value}}"
+				class="{{spreadAttributes this.classes}}"
+			/> --}}
+			<button type="{{this.type}}" class="{{spreadAttributes this.classes}}">{{this.value}}</button>
+		</section>
 
 		{{else}}
 			<div class="inputlabel">

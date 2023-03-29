@@ -4,15 +4,16 @@ interface FormFields {
 
 interface DefaultFormInput {
 	label: string;
-	required: boolean;
+	required?: boolean;
 	error: string;
+	classes?: string[];
 }
 
 interface TextField extends DefaultFormInput {
-	type: 'text';
+	type: 'text' | 'number' | 'email';
 	value: string;
 	autocomplete?: string;
-	readonly: boolean;
+	readonly?: boolean;
 }
 
 interface RadioButton extends DefaultFormInput {
@@ -29,6 +30,8 @@ interface RadioButton extends DefaultFormInput {
 interface SubmitButton {
 	type: 'submit';
 	value: string;
+	resetable?: boolean;
+	classes?: string[];
 }
 
 export { FormFields };
