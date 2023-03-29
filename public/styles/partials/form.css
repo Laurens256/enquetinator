@@ -22,6 +22,7 @@ header h1 {
 	position: sticky;
 	top: var(--heading-top);
 	text-transform: capitalize;
+	font-size: clamp(1rem, 2rem, 7vw);
 }
 
 
