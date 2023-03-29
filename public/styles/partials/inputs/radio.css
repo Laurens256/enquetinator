@@ -2,14 +2,14 @@
 /*    radio inputs   */
 /* ----------------- */
 section.radiosection > div {
-	--max-width: 650px;
-	--gap: 0.5rem;
-	--columns: 5;
 	display: grid;
 	gap: var(--gap);
 	max-width: var(--max-width);
 	margin: 0 auto;
 	/* zorgt ervoor dat er max n columns worden gemaakt */
+	--max-width: 1100px;
+	--gap: 0.5rem;
+	--columns: 11;
 	grid-template-columns: repeat(
 		auto-fit,
 		minmax(

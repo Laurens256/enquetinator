@@ -1,5 +1,5 @@
 interface FormFields {
-	[key: string]: TextField | RadioButton;
+	[key: string]: TextField | RadioButton | SubmitButton;
 }
 
 interface DefaultFormInput {
@@ -24,6 +24,11 @@ interface RadioButton extends DefaultFormInput {
 		id: string;
 		checked?: boolean;
 	}[];
+}
+
+interface SubmitButton {
+	type: 'submit';
+	value: string;
 }
 
 export { FormFields };

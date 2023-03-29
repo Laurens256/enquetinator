@@ -3,7 +3,11 @@ import {
 	validateEnqueteData,
 	FormEnqueteData
 } from '../utils/formData/validateEnqueteData';
-import { globalEnqueteData, saveSubjectData, globalChosenSemester } from '../utils/formData/saveFormData';
+import {
+	globalEnqueteData,
+	saveSubjectData,
+	globalChosenSemester
+} from '../utils/formData/saveFormData';
 
 import { FormFields } from '../types';
 
@@ -19,54 +23,12 @@ const subjectsUri = [
 	'progressive-web-app'
 ];
 
-const formFields: FormFields = {
-	subject: {
-		type: 'text',
-		label: 'Vak',
-		autocomplete: 'off',
-		required: true,
-		readonly: true,
-		value: '',
-		error: ''
-	},
-
-	semester: {
-		type: 'radio',
-		label: 'In welk semester heb je dit vak gevolgd?',
-		required: true,
-		error: '',
-		options: [
-			{ label: '1', value: '1', id: 'semester-1' },
-			{ label: '2', value: '2', id: 'semester-2' },
-		]
-	},
-	overall_rating: {
-		type: 'radio',
-		label: 'Beoordeling ding',
-		required: true,
-		error: '',
-		options: [
-			{ label: '1', value: '1', id: 'overall-1' },
-			{ label: '2', value: '2', id: 'overall-2' },
-			{ label: '3', value: '3', id: 'overall-3' },
-			{ label: '4', value: '4', id: 'overall-4' },
-			{ label: '5', value: '5', id: 'overall-5' },
-			{ label: '6', value: '6', id: 'overall-6' },
-			{ label: '7', value: '7', id: 'overall-7' },
-			{ label: '8', value: '8', id: 'overall-8' },
-			{ label: '9', value: '9', id: 'overall-9' },
-			{ label: '10', value: '10', id: 'overall-10' },
-		]
-	},
-};
-
 // check the radio button that matches the value of the form data
 const setDefaultValues = (subject: string) => {
+	console.log(subject);
 	for (const [key, obj] of Object.entries(formFields)) {
 		// check if the object is a radio button
 		if (obj.type === 'radio') {
-
-			// check if a semester has been chosen
 			if (key === 'semester') {
 				// check if the semester has been saved
 				if (!Number.isNaN(globalChosenSemester)) {
@@ -79,6 +41,7 @@ const setDefaultValues = (subject: string) => {
 					});
 				}
 				continue;
+				// check if the object is a submit button and set the value
 			}
 
 			// check if the subject has data saved
@@ -94,6 +57,14 @@ const setDefaultValues = (subject: string) => {
 						option.checked = true;
 					}
 				});
+			}
+		} else if (obj.type === 'submit') {
+			if ('value' in formFields.submit) {
+				if (subject === subjectsUri[subjectsUri.length - 1]) {
+					formFields.submit.value = 'Naar overzicht';
+				} else {
+					formFields.submit.value = 'Volgende';
+				}
 			}
 		}
 	}
@@ -140,3 +111,64 @@ router.get('/', (req, res) => {
 });
 
 export default router;
+
+
+// function for generating the options for the radio buttons, takes in the name for input id and the number of options, defaults to 10.
+const generateRadioOptions = (name: string, n = 10) => {
+	const options = [];
+	for (let i = 1; i <= n; i++) {
+		options.push({ label: `${i}`, value: `${i}`, id: `${name}-${i}` });
+	}
+	return options;
+};
+
+const formFields: FormFields = {
+	subject: {
+		type: 'text',
+		label: 'Vak',
+		autocomplete: 'off',
+		required: true,
+		readonly: true,
+		value: '',
+		error: ''
+	},
+	semester: {
+		type: 'radio',
+		label: `In welk semester heb je dit vak gevolgd?`,
+		required: true,
+		error: '',
+		options: generateRadioOptions('semester', 2)
+	},
+	overall_rating: {
+		type: 'radio',
+		label: 'Hoe zou je dit dit vak in het algemeen beoordelen? 0 = zeer slecht, 10 = zeer goed',
+		required: true,
+		error: '',
+		options: generateRadioOptions('overall')
+	},
+	difficulty_rating: {
+		type: 'radio',
+		label: 'Hoe moeilijk vond je dit vak? 0 = te makkelijk, 10 = te moeilijk',
+		required: true,
+		error: '',
+		options: generateRadioOptions('difficulty')
+	},
+	explanation_rating: {
+		type: 'radio',
+		label: 'Hoe duidelijk vond je de uitleg van dit vak? 0 = niet duidelijk, 10 = zeer duidelijk',
+		required: true,
+		error: '',
+		options: generateRadioOptions('explanation')
+	},
+	understanding_rating: {
+		type: 'radio',
+		label: 'Hoe goed begreep je dit vak? 0 = niet goed, 10 = zeer goed',
+		required: true,
+		error: '',
+		options: generateRadioOptions('understanding')
+	},
+	submit: {
+		type: 'submit',
+		value: 'Volgende'
+	}
+};

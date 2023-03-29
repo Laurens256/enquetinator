@@ -20,6 +20,12 @@
 			</div>
 		</section>
 
+	{{else if (eq this.type 'submit')}}
+		<input 
+			type="{{this.type}}"
+			value="{{this.value}}"
+		/>
+
 		{{else}}
 			<div class="inputlabel">
 				<label for="{{this.name}}">{{this.label}}</label>{{#if (ne '' this.error)}}<p>* {{this.error}}</p>{{/if}}
