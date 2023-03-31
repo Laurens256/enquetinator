@@ -77,3 +77,9 @@ button {
 	background-color: currentColor;
 	transition: transform 0.2s ease-in-out;
 }
+
+@media (prefers-reduced-motion: reduce) {
+	.underline::after {
+		transition: none !important;
+	}
+}
