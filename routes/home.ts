@@ -6,7 +6,7 @@ import { FormFields, FormUserData, FormUserErrors } from '../types';
 
 const router = express.Router();
 
-const css = ['home', 'partials/inputs/text'];
+const css = ['partials/form', 'partials/inputs/text'];
 
 const formFields: FormFields = {
 	name: {

@@ -13,13 +13,12 @@ section.radiosection > div {
 	max-width: var(--max-width);
 	margin: .5rem auto 0;
 	/* zorgt ervoor dat er max n columns worden gemaakt */
-	--max-width: 1100px;
 	--gap: 0.5rem;
 	--columns: 11;
 	grid-template-columns: repeat(
 		auto-fit,
 		minmax(
-			calc((var(--max-width) - (calc(var(--columns) - 1) * var(--gap))) / var(--columns)),
+			calc((var(--form-max-width) - (calc(var(--columns) - 1) * var(--gap))) / var(--columns)),
 			1fr
 		)
 	);

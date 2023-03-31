@@ -21,6 +21,11 @@ button {
 
 :root {
 	color-scheme: light;
+
+	/* sizes */
+	--form-max-width: 1100px;
+	--form-width: 95%;
+
 	/* static colors */
 	--text-black: #333;
 	--text-white: #fff;
