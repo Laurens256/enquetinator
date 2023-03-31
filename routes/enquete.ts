@@ -13,9 +13,6 @@ import { FormFields } from '../types';
 
 const router = express.Router();
 
-const css = ['partials/form', 'partials/inputs/text', 'partials/inputs/radio'];
-const js = ['enquete'];
-
 const subjectsUri = [
 	'css-to-the-rescue',
 	'web-app-from-scratch',
@@ -127,8 +124,7 @@ router.get('/', (req, res) => {
 	setDefaultValues(subject);
 
 	res.render('enquete', {
-		css: css,
-		js: js,
+		...res.locals,
 		formFields,
 		nextUri: getNextUri(subject, req.baseUrl)
 	});

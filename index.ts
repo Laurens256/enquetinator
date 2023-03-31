@@ -8,6 +8,7 @@ import hbsHelpers from './utils/handlebars/globalHelpers';
 import routes from './routes/routes';
 
 import { skipSubject } from './middleware/skipSubject';
+import { addExtFiles } from './middleware/addExtFiles';
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json(), express.urlencoded({extended: true}));
 
 app.use('/enquete', skipSubject);
+app.use(addExtFiles);
 
 routes.forEach((route) => {
 	app.use(route.path, route.view);

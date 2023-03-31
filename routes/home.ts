@@ -6,8 +6,6 @@ import { FormFields, FormUserData, FormUserErrors } from '../types';
 
 const router = express.Router();
 
-const css = ['partials/form', 'partials/inputs/text'];
-
 const formFields: FormFields = {
 	name: {
 		type: 'text',
@@ -66,7 +64,7 @@ router.post('/', async (req, res) => {
 
 	if (hasError) {
 		res.render('home', {
-			css: css,
+			...res.locals,
 			formFields
 		});
 	} else {
@@ -77,7 +75,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
 	res.render('home', {
-		css: css,
+		...res.locals,
 		formFields
 	});
 });
