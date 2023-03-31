@@ -10,7 +10,7 @@
 	{{else if (eq this.type 'radio')}}
 		<section class="radiosection">
 			<h2>{{{this.label}}}</h2>
-			<span class="error-{{@key}}"></span>
+			<p class="error-{{@key}}"></p>
 			<div>
 			{{#each this.options}}
 				<input 
@@ -38,7 +38,8 @@
 
 		{{else}}
 			<div class="inputlabel">
-				<label for="{{this.name}}">{{this.label}}</label>{{#if (ne '' this.error)}}<p>* {{this.error}}</p>{{/if}}
+				<label for="{{this.name}}">{{this.label}}</label>
+				<p class="error-{{@key}}">{{this.error}}</p>
 			</div>
 
 		<input 

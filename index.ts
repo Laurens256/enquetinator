@@ -7,6 +7,8 @@ import hbsHelpers from './utils/handlebars/globalHelpers';
 
 import routes from './routes/routes';
 
+import { skipSubject } from './middleware/skipSubject';
+
 const app = express();
 
 // handlebars stuff
@@ -26,7 +28,10 @@ app.set('views', './views');
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// middleware
 app.use(express.json(), express.urlencoded({extended: true}));
+
+app.use('/enquete', skipSubject);
 
 routes.forEach((route) => {
 	app.use(route.path, route.view);

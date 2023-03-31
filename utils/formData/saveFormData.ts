@@ -30,10 +30,15 @@ const saveSubjectData = (data: SaveableEnqueteData) => {
 	}
 };
 
+const removeSubjectData = (subject: string) => {
+	delete globalEnqueteData[subject];
+};
+
 export {
 	saveUserData,
 	globalUserData,
 	saveSubjectData,
 	globalEnqueteData,
+	removeSubjectData,
 	globalChosenSemester
 };

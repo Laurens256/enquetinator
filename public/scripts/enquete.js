@@ -4,7 +4,6 @@ const formElements = form.querySelectorAll('input');
 const formNamesArr = Array.from(document.querySelectorAll('form input'));
 const formNames = new Set(formNamesArr.map((el) => el.name));
 
-
 const handleFormSubmit = (e) => {
 	const formData = new FormData(e.target);
 
@@ -25,15 +24,12 @@ const handleFormSubmit = (e) => {
 const validateForm = (formData) => {
 	let errors = {};
 
-	// if more at least one field is filled, check if all are filled
-	const keys = Array.from(formData.keys());
-	if (keys.length > 1) {
-		formNames.forEach((field) => {
-			if (!formData.has(field)) {
-				errors[field] = 'Dit veld is verplicht';
-			}
-		});
-	}
+	formNames.forEach((field) => {
+		if (!formData.has(field)) {
+			errors[field] = 'Dit veld is verplicht';
+		}
+	});
+
 	return errors;
 };
 
