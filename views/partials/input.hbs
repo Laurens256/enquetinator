@@ -10,7 +10,7 @@
 	{{else if (eq this.type 'radio')}}
 		<section class="radiosection">
 			<h2>{{{this.label}}}</h2>
-			<p class="error-{{@key}}"></p>
+			<p class="error-{{@key}}">{{this.error}}</p>
 			<div>
 			{{#each this.options}}
 				<input 

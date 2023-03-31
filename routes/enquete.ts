@@ -31,7 +31,6 @@ const setDefaultValues = (subject: string) => {
 			if (key === 'semester') {
 				// check if the semester has been saved
 				if (!Number.isNaN(globalChosenSemester)) {
-
 					// check if subject semester has been saved, otherwise fallback to global semester
 					if (globalEnqueteData[subject]) {
 						obj.options.forEach((option) => {
@@ -88,11 +87,24 @@ const setDefaultValues = (subject: string) => {
 router.post('/', (req, res) => {
 	const formData: FormEnqueteData = req.body;
 
-	const saveableData = validateEnqueteData(formData);
+	const { saveableData, errors } = validateEnqueteData(formData);
 
-	saveSubjectData(saveableData);
-
-	res.redirect(getNextUri(formData.subject, req.baseUrl));
+	// If there are no errors, save the data and redirect to next subject
+	if (saveableData) {
+		saveSubjectData(saveableData);
+		return res.redirect(getNextUri(formData.subject, req.baseUrl));
+	} else {
+		for (const [key, message] of Object.entries(errors)) {
+			if (formFields[key] && 'error' in formFields[key]) {
+				formFields[key].error = message;
+			}
+		}
+		res.render('enquete', {
+			...res.locals,
+			formFields,
+			nextUri: getNextUri(formData.subject, req.baseUrl)
+		});
+	}
 });
 
 const getNextUri = (subject: string, baseUrl: string) => {

@@ -45,5 +45,5 @@ const clearForm = (e) => {
 	});
 };
 
-form.addEventListener('submit', handleFormSubmit);
-form.addEventListener('reset', clearForm);
+// form.addEventListener('submit', handleFormSubmit);
+// form.addEventListener('reset', clearForm);

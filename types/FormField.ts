@@ -31,11 +31,13 @@ interface SubmitButton {
 	value: string;
 	resetable?: boolean;
 	classes?: string[];
+	error?: string;
 }
 
 interface HiddenInput {
 	type: 'hidden';
 	value: string;
+	error?: string;
 }
 
 export { FormFields };
