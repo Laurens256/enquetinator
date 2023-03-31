@@ -58,6 +58,11 @@ const setDefaultValues = (subject: string) => {
 						option.checked = true;
 					}
 				});
+			} else {
+				// if no data is saved, make sure all options are unchecked
+				obj.options.forEach((option) => {
+					option.checked = false;
+				});
 			}
 		} else if (obj.type === 'submit') {
 			if ('value' in formFields.submit) {
@@ -118,6 +123,7 @@ router.get('/', (req, res) => {
 });
 
 export default router;
+export { getNextUri };
 
 // function for generating the options for the radio buttons, takes in the name for input id and the number of options, defaults to 10.
 const generateRadioOptions = (name: string, n = 10) => {
@@ -131,7 +137,7 @@ const generateRadioOptions = (name: string, n = 10) => {
 const formFields: FormFields = {
 	subject: {
 		type: 'hidden',
-		value: '',
+		value: ''
 	},
 	semester: {
 		type: 'radio',
