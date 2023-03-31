@@ -1,14 +1,11 @@
 {{#each formFields}}
 
-	{{#if (eq @key 'subject')}}
-		<label class="readonly">{{this.label}}
-			<input 
-				type="{{this.type}}"
-				name="{{@key}}"
-				value="{{this.value}}"
-				{{#this.readonly}}readonly{{/this.readonly}}
-			/>
-		</label>
+	{{#if (eq this.type 'hidden')}}
+		<input 
+			type="{{this.type}}"
+			name="{{@key}}"
+			value="{{this.value}}"
+		/>
 
 	{{else if (eq this.type 'radio')}}
 		<section class="radiosection">
@@ -31,20 +28,9 @@
 	{{else if (eq this.type 'submit')}}
 		<section class="submitsection">
 			{{#if this.resetable}}
-				{{!-- <input 
-					type="reset"
-					value="Velden legen"
-					class="{{spreadAttributes this.classes}}"
-				/> --}}
-				<button type="reset" class="{{spreadAttributes this.classes}}">Velden legen
-
-				</button>
+				<button type="reset" class="{{spreadAttributes this.classes}}">Velden legen</button>
 			{{/if}}
-			{{!-- <input 
-				type="{{this.type}}"
-				value="{{this.value}}"
-				class="{{spreadAttributes this.classes}}"
-			/> --}}
+
 			<button type="{{this.type}}" class="{{spreadAttributes this.classes}}">{{this.value}}</button>
 		</section>
 

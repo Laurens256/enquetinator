@@ -1,5 +1,5 @@
 interface FormFields {
-	[key: string]: TextField | RadioButton | SubmitButton;
+	[key: string]: TextField | RadioButton | SubmitButton | HiddenInput;
 }
 
 interface DefaultFormInput {
@@ -13,7 +13,6 @@ interface TextField extends DefaultFormInput {
 	type: 'text' | 'number' | 'email';
 	value: string;
 	autocomplete?: string;
-	readonly?: boolean;
 }
 
 interface RadioButton extends DefaultFormInput {
@@ -32,6 +31,11 @@ interface SubmitButton {
 	value: string;
 	resetable?: boolean;
 	classes?: string[];
+}
+
+interface HiddenInput {
+	type: 'hidden';
+	value: string;
 }
 
 export { FormFields };

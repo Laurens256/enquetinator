@@ -30,7 +30,6 @@ const setDefaultValues = (subject: string) => {
 	for (const [key, obj] of Object.entries(formFields)) {
 		// check if the object is a radio button
 		if (obj.type === 'radio') {
-
 			if (key === 'semester') {
 				// check if the semester has been saved
 				if (!Number.isNaN(globalChosenSemester)) {
@@ -59,7 +58,6 @@ const setDefaultValues = (subject: string) => {
 					}
 				});
 			}
-
 		} else if (obj.type === 'submit') {
 			if ('value' in formFields.submit) {
 				if (subject === subjectsUri[subjectsUri.length - 1]) {
@@ -79,15 +77,19 @@ router.post('/', (req, res) => {
 
 	saveSubjectData(saveableData);
 
-	// Redirect to next subject
-	const nextSubject = subjectsUri[subjectsUri.indexOf(formData.subject) + 1];
-	if (nextSubject) {
-		res.redirect(`${req.baseUrl}?vak=${nextSubject}`);
-	} else {
-		res.redirect(`${req.baseUrl}?vak=${subjectsUri[0]}`);
-		// res.redirect(`${req.baseUrl}/overview`);
-	}
+	res.redirect(getNextUri(formData.subject, req.baseUrl));
 });
+
+const getNextUri = (subject: string, baseUrl: string) => {
+	// Redirect to next subject or overview
+	const nextSubject = subjectsUri[subjectsUri.indexOf(subject) + 1];
+	if (nextSubject) {
+		return `${baseUrl}?vak=${nextSubject}`;
+	} else {
+		return `${baseUrl}?vak=${subjectsUri[0]}`;
+		// return`${baseUrl}/overview`;
+	}
+};
 
 router.get('/', (req, res) => {
 	// Check if subject is valid and redirect if not
@@ -100,7 +102,7 @@ router.get('/', (req, res) => {
 		return res.redirect(`${req.baseUrl}?vak=${subject}`);
 	}
 
-	if (formFields.subject.type === 'text') {
+	if (formFields.subject.type === 'hidden') {
 		formFields.subject.value = subject;
 	}
 
@@ -108,12 +110,12 @@ router.get('/', (req, res) => {
 
 	res.render('enquete', {
 		css: css,
-		formFields
+		formFields,
+		nextUri: getNextUri(subject, req.baseUrl)
 	});
 });
 
 export default router;
-
 
 // function for generating the options for the radio buttons, takes in the name for input id and the number of options, defaults to 10.
 const generateRadioOptions = (name: string, n = 10) => {
@@ -126,13 +128,8 @@ const generateRadioOptions = (name: string, n = 10) => {
 
 const formFields: FormFields = {
 	subject: {
-		type: 'text',
-		label: 'Vak',
-		autocomplete: 'off',
-		required: true,
-		readonly: true,
+		type: 'hidden',
 		value: '',
-		error: ''
 	},
 	semester: {
 		type: 'radio',
@@ -145,7 +142,8 @@ const formFields: FormFields = {
 	overall_rating: {
 		type: 'radio',
 		classes: ['underline'],
-		label: 'Hoe zou je dit vak in het algemeen beoordelen? <br>0 = zeer slecht, 10 = zeer goed.',
+		label:
+			'Hoe zou je dit vak in het algemeen beoordelen? <br>0 = zeer slecht, 10 = zeer goed.',
 		required: true,
 		error: '',
 		options: generateRadioOptions('overall')
@@ -161,7 +159,8 @@ const formFields: FormFields = {
 	explanation_rating: {
 		type: 'radio',
 		classes: ['underline'],
-		label: 'Hoe duidelijk vond je de uitleg van dit vak? <br>0 = niet duidelijk, 10 = zeer duidelijk.',
+		label:
+			'Hoe duidelijk vond je de uitleg van dit vak? <br>0 = niet duidelijk, 10 = zeer duidelijk.',
 		required: true,
 		error: '',
 		options: generateRadioOptions('explanation')

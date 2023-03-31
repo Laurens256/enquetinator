@@ -22,9 +22,16 @@ header {
 	padding: 0 max(1rem, calc((100vw - 1100px) / 2));
 }
 
-header h1 {
+header div {
 	position: sticky;
+	display: flex;
+	align-items: space-between;
 	top: var(--heading-top);
+
+	width: 100%;
+}
+
+header div h1 {
 	text-transform: capitalize;
 	font-size: clamp(1rem, 2rem, 7vw);
 }

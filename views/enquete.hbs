@@ -1,7 +1,10 @@
 <main>
 	<div class='form-container'>
 		<header>
-			<h1>{{subjectName formFields.subject.value}}</h1>
+			<div>
+				<h1>{{subjectName formFields.subject.value}}</h1>
+				<a href="{{nextUri}}">Vak Overslaan</a>
+			</div>
 		</header>
 		
 		<form method='POST' action='/enquete' autocomplete='off' novalidate>

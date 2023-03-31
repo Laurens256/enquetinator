@@ -48,10 +48,3 @@ div.inputlabel p {
 	}
 
 }
-
-
-
-/* styling voor readonly input */
-label.readonly {
-	display: none;
-}
