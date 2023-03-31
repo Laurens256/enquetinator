@@ -16,7 +16,6 @@ type SaveableEnqueteData = {
 		difficulty_rating: number;
 		explanation_rating: number;
 		understanding_rating: number;
-		completed?: boolean;
 	};
 };
 

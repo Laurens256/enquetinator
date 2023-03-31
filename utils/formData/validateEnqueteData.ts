@@ -22,16 +22,6 @@ const validateEnqueteData = (formData: FormEnqueteData) => {
 		understanding_rating: Number(understanding_rating)
 	};
 
-	const completed = Object.values(saveableData[subject]).some((value) => {
-		!(Number.isNaN(value) || value === '' || value === null || value === undefined);
-	});
-
-	if (completed) {
-		saveableData[subject].completed = true;
-	} else {
-		saveableData[subject].completed = false;
-	}
-
 	return saveableData;
 };
 

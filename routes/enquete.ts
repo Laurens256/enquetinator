@@ -34,13 +34,25 @@ const setDefaultValues = (subject: string) => {
 			if (key === 'semester') {
 				// check if the semester has been saved
 				if (!Number.isNaN(globalChosenSemester)) {
-					obj.options.forEach((option) => {
-						if (option.value !== String(globalChosenSemester)) {
-							option.checked = false;
-						} else {
-							option.checked = true;
-						}
-					});
+
+					// check if subject semester has been saved, otherwise fallback to global semester
+					if (globalEnqueteData[subject]) {
+						obj.options.forEach((option) => {
+							if (option.value !== String(globalEnqueteData[subject].semester)) {
+								option.checked = false;
+							} else {
+								option.checked = true;
+							}
+						});
+					} else {
+						obj.options.forEach((option) => {
+							if (option.value !== String(globalChosenSemester)) {
+								option.checked = false;
+							} else {
+								option.checked = true;
+							}
+						});
+					}
 				}
 				continue;
 			}
