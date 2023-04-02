@@ -1,5 +1,6 @@
 {{#each formFields}}
 
+	{{!-- hidden input (not interactable) --}}
 	{{#if (eq this.type 'hidden')}}
 		<input 
 			type="{{this.type}}"
@@ -7,8 +8,12 @@
 			value="{{this.value}}"
 		/>
 
-	{{else if (eq this.type 'radio')}}
-		<section class="radiosection">
+	{{!-- radio button section & checkbox section --}}
+	{{else if (or (eq this.type 'radio') (eq this.type 'checkbox'))}}
+		<section 
+		class="optionsection 
+		{{#if (eq this.type 'radio')}}radiosection{{/if}}
+		{{#if (eq this.type 'checkbox')}}checkboxsection{{/if}}">
 			<h2>{{{this.label}}}</h2>
 			<p class="error-{{@key}}">{{this.error}}</p>
 			<div>
@@ -27,6 +32,7 @@
 			</div>
 		</section>
 
+	{{!-- submit button & reset form button --}}
 	{{else if (eq this.type 'submit')}}
 		<section class="submitsection">
 			{{#if this.resetable}}
@@ -36,6 +42,7 @@
 			<button type="{{this.type}}" class="{{spreadAttributes this.classes}}">{{this.value}}</button>
 		</section>
 
+	{{!-- all other input types; text, number etc. --}}
 		{{else}}
 			<div class="inputlabel">
 				<label for="{{this.name}}">{{this.label}}</label>

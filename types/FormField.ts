@@ -1,5 +1,5 @@
 interface FormFields {
-	[key: string]: TextField | RadioButton | SubmitButton | HiddenInput;
+	[key: string]: TextField | RadioButton | SubmitButton | HiddenInput | Checkbox;
 }
 
 interface DefaultFormInput {
@@ -25,6 +25,17 @@ interface RadioButton extends DefaultFormInput {
 		checked?: boolean;
 	}[];
 }
+
+interface Checkbox extends DefaultFormInput {
+	type: 'checkbox';
+
+	options: {
+		label: string;
+		value: string;
+		id: string;
+		checked?: boolean;
+	}[];
+};
 
 interface SubmitButton {
 	type: 'submit';

@@ -13,16 +13,6 @@ import { FormFields } from '../types';
 
 const router = express.Router();
 
-const subjectsUri = [
-	'css-to-the-rescue',
-	'web-app-from-scratch',
-	'browser-technologies',
-	'progressive-web-app',
-	'realtime-web',
-	'human-centered-design',
-	'meesterproef'
-];
-
 // check the radio button that matches the value of the form data
 const setDefaultValues = (subject: string) => {
 	for (const [key, obj] of Object.entries(formFields)) {
@@ -72,9 +62,13 @@ const setDefaultValues = (subject: string) => {
 					option.checked = false;
 				});
 			}
+		} else if (obj.type === 'checkbox') {
+			if ('options' in formFields.teachers) {
+				formFields.teachers.options = chooseTeachers(subject);
+			}
 		} else if (obj.type === 'submit') {
 			if ('value' in formFields.submit) {
-				if (subject === subjectsUri[subjectsUri.length - 1]) {
+				if (subject === subjectInfo[subjectInfo.length - 1].subject) {
 					formFields.submit.value = 'Naar overzicht';
 				} else {
 					formFields.submit.value = 'Volgende';
@@ -108,12 +102,15 @@ router.post('/', (req, res) => {
 });
 
 const getNextUri = (subject: string, baseUrl: string) => {
-	// Redirect to next subject or overview
-	const nextSubject = subjectsUri[subjectsUri.indexOf(subject) + 1];
+	const currentSubject = subjectInfo.find(
+		(subjectInfo) => subjectInfo.subject === subject
+	)!;
+	const nextSubject = subjectInfo[subjectInfo.indexOf(currentSubject) + 1];
+
 	if (nextSubject) {
-		return `${baseUrl}?vak=${nextSubject}`;
+		return `${baseUrl}?vak=${nextSubject.subject}`;
 	} else {
-		return `${baseUrl}?vak=${subjectsUri[0]}`;
+		return `${baseUrl}?vak=${subjectInfo[0].subject}`;
 		// return`${baseUrl}/overview`;
 	}
 };
@@ -122,10 +119,12 @@ router.get('/', (req, res) => {
 	// Check if subject is valid and redirect if not
 	let subject = req.query.vak;
 	if (
-		!(typeof subject === 'string' && subjectsUri.includes(subject)) ||
-		typeof subject !== 'string'
+		!(
+			typeof subject === 'string' &&
+			subjectInfo.find((subjectInfo) => subjectInfo.subject === subject)
+		)
 	) {
-		subject = subjectsUri[0];
+		subject = subjectInfo[0].subject;
 		return res.redirect(`${req.baseUrl}?vak=${subject}`);
 	}
 
@@ -154,6 +153,43 @@ const generateRadioOptions = (name: string, n = 10) => {
 	return options;
 };
 
+// function for generating the options for teachers checkboxes
+const chooseTeachers = (subject: string) => {
+	const currentSubject = subjectInfo.find(
+		(subjectInfo) => subjectInfo.subject === subject
+	);
+	const options: { label: string; value: string; id: string }[] = [];
+	if (currentSubject) {
+		currentSubject.teachers.forEach((teacher) => {
+			options.push({
+				label: `${teacher}`,
+				value: `${teacher}`,
+				id: `${teacher.toLowerCase()}`
+			});
+		});
+	} else {
+		teachers.forEach((teacher) => {
+			options.push({
+				label: `${teacher}`,
+				value: `${teacher}`,
+				id: `${teacher.toLowerCase()}`
+			});
+		});
+	}
+	return options;
+};
+
+const teachers = ['Sanne', 'Vasilis', 'Robert', 'Peter-Paul Koch', 'Janno', 'Declan'];
+const subjectInfo = [
+	{ subject: 'css-to-the-rescue', teachers: ['Sanne', 'Vasilis'] },
+	{ subject: 'web-app-from-scratch', teachers: ['Robert', 'Joost'] },
+	{ subject: 'browser-technologies', teachers: ['Vasilis', 'Peter-Paul Koch'] },
+	{ subject: 'progressive-web-apps', teachers: ['Janno', 'Declan'] },
+	{ subject: 'realtime-web', teachers: teachers },
+	{ subject: 'human-centered-design', teachers: teachers },
+	{ subject: 'meesterproef', teachers: teachers }
+];
+
 const formFields: FormFields = {
 	subject: {
 		type: 'hidden',
@@ -166,6 +202,14 @@ const formFields: FormFields = {
 		required: true,
 		error: '',
 		options: generateRadioOptions('semester', 2)
+	},
+	teachers: {
+		type: 'checkbox',
+		classes: ['underline'],
+		label: `Van welke docent(en) heb je dit vak gekregen?`,
+		required: true,
+		error: '',
+		options: []
 	},
 	overall_rating: {
 		type: 'radio',

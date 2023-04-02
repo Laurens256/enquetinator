@@ -1,13 +1,13 @@
 /* ----------------- */
 /*    radio inputs   */
 /* ----------------- */
-section.radiosection {
+section.optionsection {
 	padding: 2.5rem 0;
 	border-bottom: var(--link-color) solid 2px;
 	border-bottom: #bb9af7 solid 2px;
 }
 
-section.radiosection > div {
+section.optionsection > div {
 	display: grid;
 	gap: var(--gap);
 	max-width: var(--max-width);
@@ -24,17 +24,17 @@ section.radiosection > div {
 	);
 }
 
-section.radiosection h2 {
+section.optionsection h2 {
 	font-size: 1.3rem;
 }
 
-section.radiosection input {
+section.optionsection input {
 	position: fixed;
 	opacity: 0;
 	pointer-events: none;
 }
 
-section.radiosection label {
+section.optionsection label {
 	font-size: 1.2rem;
 	user-select: none;
 	padding: 0.7rem;
@@ -48,27 +48,27 @@ section.radiosection label {
 	transition: border-color 0.2s ease-in-out;
 }
 
-section.radiosection input:not(:checked) + label {
+section.optionsection input:not(:checked) + label {
 	cursor: pointer;
 }
 
-section.radiosection input:focus-visible + label,
-section.radiosection input:not(:checked) + label:hover {
+section.optionsection input:focus-visible + label,
+section.optionsection input:not(:checked) + label:hover {
 	border-color: var(--primary-text);
 }
 
-section.radiosection input:focus-visible + label {
+section.optionsection input:focus-visible + label {
 	outline: solid 2px var(--primary-text);
 	outline-offset: 2px;
 }
 
-section.radiosection input:checked + label {
+section.optionsection input:checked + label {
 	background-color: var(--radio-selected);
 	text-shadow: 1px 0 0 currentColor;
 }
 
 
 /* active state underline komt uit main.css */
-section.radiosection input:checked + label.underline::after {
+section.optionsection input:checked + label.underline::after {
 	transform: translateX(-50%) scale(1);
 }
