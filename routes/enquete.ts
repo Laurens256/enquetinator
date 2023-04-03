@@ -84,7 +84,7 @@ router.post('/', (req, res) => {
 			}
 		}
 		tempData = transformTempData(formData);
-		res.redirect('back');
+		res.redirect(`${req.baseUrl}?vak=${formData.subject}`);
 	}
 });
 

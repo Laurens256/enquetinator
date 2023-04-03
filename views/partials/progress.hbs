@@ -1,16 +1,18 @@
 <nav class='progress'>
-	{{! <h2>Voortgang</h2> }}
 	<ul>
-		<li>
-			{{#if adjacentUri.prevUri}}
+		{{#if adjacentUri.prevUri}}
+			<li>
 				<a href='{{adjacentUri.prevUri}}'>Terug</a>
-			{{/if}}
-		</li>
+			</li>
+		{{/if}}
 
 		<li class='progressbar'>
 			<label>Enquete
-				{{progress}}% voltooid.
-				<progress value='{{progress}}' min='0' max='100'></progress>
+				{{progress}}% voltooid.<progress
+					value='{{progress}}'
+					min='0'
+					max='100'
+				></progress>
 			</label>
 		</li>
 	</ul>

@@ -69,7 +69,7 @@ router.post('/', async (req, res) => {
 		});
 	} else {
 		saveUserData(formData);
-		res.redirect('/enquete');
+		res.redirect('/enquete?vak=css-to-the-rescue');
 	}
 });
 
