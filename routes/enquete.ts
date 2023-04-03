@@ -32,7 +32,7 @@ const setDefaultValues = (subject: string, tempData?: TempEnqueteData) => {
 				break;
 
 			case 'checkbox':
-				setTeachers(currentSubject, obj);
+				setTeachers(currentSubject, obj, tempData);
 				break;
 
 			case 'submit':

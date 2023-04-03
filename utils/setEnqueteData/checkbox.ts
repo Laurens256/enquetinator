@@ -1,5 +1,6 @@
 import { globalEnqueteData } from '../formData/saveFormData';
 import { Checkbox } from '../../types/FormField';
+import { TempEnqueteData } from '../../types';
 
 const teachers = [
 	'Sanne',
@@ -13,8 +14,12 @@ const teachers = [
 	'Joost'
 ];
 
-const setTeachers = (subjectInfo: { subject: string; teachers: string[]; }, obj: Checkbox) => {
-	const savedData = globalEnqueteData[subjectInfo.subject];
+const setTeachers = (
+	subjectInfo: { subject: string; teachers: string[] },
+	obj: Checkbox,
+	tempData?: TempEnqueteData
+) => {
+	const savedData = tempData || globalEnqueteData[subjectInfo.subject];
 	// set the options for the teachers checkboxes
 	obj.options = chooseTeachers(subjectInfo.teachers);
 
@@ -27,7 +32,7 @@ const setTeachers = (subjectInfo: { subject: string; teachers: string[]; }, obj:
 				option.checked = false;
 			}
 		});
-	// if there is no saved data, uncheck all checkboxes
+		// if there is no saved data, uncheck all checkboxes
 	} else {
 		obj.options.forEach((option) => {
 			option.checked = false;
