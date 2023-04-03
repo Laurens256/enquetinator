@@ -43,7 +43,11 @@ const clearForm = (e) => {
 			el.checked = false;
 		}
 	});
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	});
 };
 
-// form.addEventListener('submit', handleFormSubmit);
-// form.addEventListener('reset', clearForm);
+form.addEventListener('submit', handleFormSubmit);
+form.addEventListener('reset', clearForm);

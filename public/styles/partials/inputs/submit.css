@@ -1,4 +1,4 @@
-section.submitsection {
+.submitsection {
 	display: grid;
 	grid-template-columns: 35% 1fr;
 	gap: 0.5rem;
@@ -6,7 +6,7 @@ section.submitsection {
 	height: 3rem;
 }
 
-section.submitsection button {
+.submitsection button {
 	cursor: pointer;
 	padding: 0.5rem;
 	border: 2px solid;
@@ -15,46 +15,50 @@ section.submitsection button {
 	font-size: 1.1rem;
 }
 
-section.submitsection button:focus-visible {
+.submitsection button:only-child {
+	grid-column: 1 / -1;
+}
+
+.submitsection button:focus-visible {
 	outline: solid 2px var(--primary-text);
 	outline-offset: 3px;
 }
 
 /* reset button */
-section.submitsection button[type='reset'],
-section.submitsection button[type='reset'] {
+.submitsection button[type='submit'],
+.submitsection button[type='submit'] {
 	border-color: var(--input-divider);
 	background-color: var(--input-divider);
 	color: var(--inverted-text);
 }
 
-section.submitsection button[type='reset']:focus-visible,
-section.submitsection button[type='reset']:hover {
+.submitsection button[type='submit']:focus-visible,
+.submitsection button[type='submit']:hover {
 	background-color: var(--primary-bg);
 	color: var(--primary-text);
 }
 
 /* submit button */
-section.submitsection button[type='submit'] {
+.submitsection button[type='reset'] {
 	border-color: var(--radio-bg);
 	background-color: var(--radio-bg);
 	color: var(--radio-text);
 }
 
-section.submitsection button[type='submit']:focus-visible,
-section.submitsection button[type='submit']:hover {
+.submitsection button[type='reset']:focus-visible,
+.submitsection button[type='reset']:hover {
 	background-color: var(--primary-bg);
 	color: var(--primary-text);
 }
 
 /* underline dingetj */
-section.submitsection button::after,
-section.submitsection button::after {
+.submitsection button::after,
+.submitsection button::after {
 	width: 5em;
 	max-width: 95%;
 }
 
-section.submitsection button:focus-visible::after,
-section.submitsection button:hover::after {
+.submitsection button:focus-visible::after,
+.submitsection button:hover::after {
 	transform: translateX(-50%) scale(1);
 }

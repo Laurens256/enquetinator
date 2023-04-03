@@ -35,9 +35,9 @@
 	{{!-- submit button & reset form button --}}
 	{{else if (eq this.type 'submit')}}
 		<section class="submitsection">
-			{{#if this.resetable}}
-				<button type="reset" class="{{spreadAttributes this.classes}}">Velden legen</button>
-			{{/if}}
+			{{!-- {{#if this.resetable}} --}}
+				{{!-- <button type="reset" class="{{spreadAttributes this.classes}}">Velden legen</button> --}}
+			{{!-- {{/if}} --}}
 
 			<button type="{{this.type}}" class="{{spreadAttributes this.classes}}">{{this.value}}</button>
 		</section>
