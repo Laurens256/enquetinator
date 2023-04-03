@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
 	// If there are no errors, save the data and redirect to next subject
 	if (saveableData) {
 		saveSubjectData(saveableData);
-		return res.redirect(nextUri);
+		return res.redirect(nextUri!);
 	} else {
 		for (const [key, message] of Object.entries(errors)) {
 			if (formFields[key] && 'error' in formFields[key]) {
@@ -69,7 +69,7 @@ const getAdjacentUri = (
 	baseUrl: string,
 	direction: 'prev' | 'next' | 'both' = 'both'
 ) => {
-	let adjacent: { prevUri?: any; nextUri?: any } = {};
+	let adjacent: { prevUri?: string; nextUri?: string } = {};
 	if (direction === 'prev' || direction === 'both') {
 		const prevSubject = subjectInfo[subjectInfo.indexOf(currentSubject) - 1];
 		if (prevSubject) {
@@ -80,6 +80,8 @@ const getAdjacentUri = (
 		const nextSubject = subjectInfo[subjectInfo.indexOf(currentSubject) + 1];
 		if (nextSubject) {
 			adjacent.nextUri = `${baseUrl}?vak=${nextSubject.subject}`;
+		} else {
+			adjacent.nextUri = `${baseUrl}/overview`;
 		}
 	}
 	return adjacent;
