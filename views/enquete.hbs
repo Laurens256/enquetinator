@@ -3,11 +3,11 @@
 		<header>
 			<div>
 				<h1>{{subjectName formFields.subject.value}}</h1>
-				<a href="{{nextUri}}&removesubject={{formFields.subject.value}}" class="underline">Vak Overslaan</a>
+				<a href="{{adjacentUri.nextUri}}&removesubject={{formFields.subject.value}}" class="underline">Vak Overslaan</a>
 			</div>
 		</header>
 
-		{{> progress subjectInfo=subjectInfo}}
+		{{> progress adjacentUri=adjacentUri}}
 		
 		<form method='POST' action='/enquete' autocomplete='off' novalidate>
 

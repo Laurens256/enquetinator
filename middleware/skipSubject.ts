@@ -9,7 +9,7 @@ const skipSubject = (req: Request, res: Response, next: NextFunction) => {
 	if (subject && typeof subject === 'string') {
 		removeSubjectData(subject);
 		const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
-		return res.redirect(nextUri);
+		return res.redirect(nextUri!);
 	}
 
 	next();

@@ -1,10 +1,17 @@
-<nav class="progress">
-	<h2></h2>
+<nav class='progress'>
+	{{! <h2>Voortgang</h2> }}
 	<ul>
-		{{#each subjectInfo}}
-			<li>
-				<a href="/enquete?vak={{this.subject}}">{{subjectName this.subject}}</a>
-			</li>
-		{{/each}}
+		<li>
+			{{#if adjacentUri.prevUri}}
+				<a href='{{adjacentUri.prevUri}}'>Terug</a>
+			{{/if}}
+		</li>
+
+		<li class='progressbar'>
+			<label>Enquete
+				{{progress}}% voltooid.
+				<progress value='{{progress}}' min='0' max='100'></progress>
+			</label>
+		</li>
 	</ul>
 </nav>

@@ -36,34 +36,12 @@ const setDefaultValues = (subject: string, tempData?: TempEnqueteData) => {
 				break;
 
 			case 'submit':
-				const isLast = subject === subjectInfo[subjectInfo.length - 1].subject
+				const isLast = subject === subjectInfo[subjectInfo.length - 1].subject;
 				setSubmitValue(isLast, obj);
 				break;
 		}
 	}
 };
-
-let tempData: TempEnqueteData | undefined;
-router.post('/', (req, res) => {
-	const formData: FormEnqueteData = req.body;
-
-	const { saveableData, errors } = validateEnqueteData(formData);
-	const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
-
-	// If there are no errors, save the data and redirect to next subject
-	if (saveableData) {
-		saveSubjectData(saveableData);
-		return res.redirect(nextUri!);
-	} else {
-		for (const [key, message] of Object.entries(errors)) {
-			if (formFields[key] && 'error' in formFields[key]) {
-				formFields[key].error = message;
-			}
-		}
-		tempData = transformTempData(formData);
-		res.redirect('back');
-	}
-});
 
 const getAdjacentUri = (
 	baseUrl: string,
@@ -87,6 +65,29 @@ const getAdjacentUri = (
 	return adjacent;
 };
 
+let tempData: TempEnqueteData | undefined;
+router.post('/', (req, res) => {
+	const formData: FormEnqueteData = req.body;
+
+	const { saveableData, errors } = validateEnqueteData(formData);
+
+	// If there are no errors, save the data and redirect to next subject
+	if (saveableData) {
+		saveSubjectData(saveableData);
+
+		const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
+		return res.redirect(nextUri!);
+	} else {
+		for (const [key, message] of Object.entries(errors)) {
+			if (formFields[key] && 'error' in formFields[key]) {
+				formFields[key].error = message;
+			}
+		}
+		tempData = transformTempData(formData);
+		res.redirect('back');
+	}
+});
+
 router.get('/', (req, res) => {
 	// Check if subject is valid and redirect if not
 	let subject = req.query.vak;
@@ -105,13 +106,16 @@ router.get('/', (req, res) => {
 	setDefaultValues(subject, tempData);
 	tempData = undefined;
 
-	const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
+	const progress = Math.round(
+		(subjectInfo.indexOf(currentSubject) / subjectInfo.length) * 100
+	);
 
 	res.render('enquete', {
 		...res.locals,
 		formFields,
 		subjectInfo,
-		nextUri: nextUri
+		adjacentUri: getAdjacentUri(req.baseUrl),
+		progress
 	});
 });
 
