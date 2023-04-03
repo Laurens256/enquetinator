@@ -43,15 +43,16 @@ const setDefaultValues = (subject: string, tempData?: TempEnqueteData) => {
 	}
 };
 
+let tempData: TempEnqueteData | undefined;
 router.post('/', (req, res) => {
 	const formData: FormEnqueteData = req.body;
 
 	const { saveableData, errors } = validateEnqueteData(formData);
+	const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
 
 	// If there are no errors, save the data and redirect to next subject
 	if (saveableData) {
 		saveSubjectData(saveableData);
-		const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
 		return res.redirect(nextUri);
 	} else {
 		for (const [key, message] of Object.entries(errors)) {
@@ -59,8 +60,7 @@ router.post('/', (req, res) => {
 				formFields[key].error = message;
 			}
 		}
-		const tempData = transformTempData(formData);
-		setDefaultValues(currentSubject.subject, tempData);
+		tempData = transformTempData(formData);
 		res.redirect('back');
 	}
 });
@@ -100,7 +100,8 @@ router.get('/', (req, res) => {
 
 	currentSubject = subjectInfo.find((subjectInfo) => subjectInfo.subject === subject)!;
 
-	setDefaultValues(subject);
+	setDefaultValues(subject, tempData);
+	tempData = undefined;
 
 	const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
 
