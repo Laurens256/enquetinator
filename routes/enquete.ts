@@ -13,8 +13,11 @@ import { FormFields } from '../types';
 
 const router = express.Router();
 
+// meest messy function ooit, sorry als je hier ooit wat mee moet
 // check the radio button that matches the value of the form data
 const setDefaultValues = (subject: string) => {
+	const savedData = globalEnqueteData[subject];
+
 	for (const [key, obj] of Object.entries(formFields)) {
 		// check if the object is a radio button
 		if (obj.type === 'radio') {
@@ -44,7 +47,6 @@ const setDefaultValues = (subject: string) => {
 			}
 
 			// check if the subject has data saved
-			const savedData = globalEnqueteData[subject];
 			if (savedData && savedData[key as keyof typeof savedData]) {
 				const savedValue = String(savedData[key as keyof typeof savedData]);
 
@@ -65,6 +67,16 @@ const setDefaultValues = (subject: string) => {
 		} else if (obj.type === 'checkbox') {
 			if ('options' in formFields.teachers) {
 				formFields.teachers.options = chooseTeachers(subject);
+
+				if (savedData && savedData[key as keyof typeof savedData]) {
+					formFields.teachers.options.forEach((option) => {
+						if (savedData.teachers.includes(option.value)) {
+							option.checked = true;
+						} else {
+							option.checked = false;
+						}
+					});
+				}
 			}
 		} else if (obj.type === 'submit') {
 			if ('value' in formFields.submit) {
