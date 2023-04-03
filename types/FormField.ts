@@ -51,4 +51,4 @@ interface HiddenInput {
 	error?: string;
 }
 
-export { FormFields };
+export { FormFields, TextField, RadioButton, SubmitButton, HiddenInput, Checkbox };

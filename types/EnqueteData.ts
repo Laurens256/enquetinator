@@ -10,6 +10,7 @@ type FormEnqueteData = {
 
 type SaveableEnqueteData = {
 	[subject: string]: {
+		[x: string]: any;
 		teachers: any;
 		semester: number;
 		overall_rating: number;

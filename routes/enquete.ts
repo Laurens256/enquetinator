@@ -3,89 +3,41 @@ import {
 	validateEnqueteData,
 	FormEnqueteData
 } from '../utils/formData/validateEnqueteData';
-import {
-	globalEnqueteData,
-	saveSubjectData,
-	globalChosenSemester
-} from '../utils/formData/saveFormData';
+import { globalEnqueteData, saveSubjectData } from '../utils/formData/saveFormData';
+
+import { setSemester, setRating } from '../utils/setEnqueteData/radio';
+import { setTeachers } from '../utils/setEnqueteData/checkbox';
+import { setSubject } from '../utils/setEnqueteData/text';
 
 import { FormFields } from '../types';
+import { setSubmitValue } from '../utils/setEnqueteData/other';
 
 const router = express.Router();
 
-// meest messy function ooit, sorry als je hier ooit wat mee moet
 // check the radio button that matches the value of the form data
 const setDefaultValues = (subject: string) => {
-	const savedData = globalEnqueteData[subject];
-
 	for (const [key, obj] of Object.entries(formFields)) {
-		// check if the object is a radio button
-		if (obj.type === 'radio') {
-			if (key === 'semester') {
-				// check if the semester has been saved
-				if (!Number.isNaN(globalChosenSemester)) {
-					// check if subject semester has been saved, otherwise fallback to global semester
-					if (globalEnqueteData[subject]) {
-						obj.options.forEach((option) => {
-							if (option.value !== String(globalEnqueteData[subject].semester)) {
-								option.checked = false;
-							} else {
-								option.checked = true;
-							}
-						});
-					} else {
-						obj.options.forEach((option) => {
-							if (option.value !== String(globalChosenSemester)) {
-								option.checked = false;
-							} else {
-								option.checked = true;
-							}
-						});
-					}
-				}
-				continue;
-			}
+		switch (obj.type) {
+			case 'hidden':
+				setSubject(subject, obj);
+				break;
 
-			// check if the subject has data saved
-			if (savedData && savedData[key as keyof typeof savedData]) {
-				const savedValue = String(savedData[key as keyof typeof savedData]);
-
-				// check if the saved value matches one of the options
-				obj.options.forEach((option) => {
-					if (option.value !== savedValue) {
-						option.checked = false;
-					} else {
-						option.checked = true;
-					}
-				});
-			} else {
-				// if no data is saved, make sure all options are unchecked
-				obj.options.forEach((option) => {
-					option.checked = false;
-				});
-			}
-		} else if (obj.type === 'checkbox') {
-			if ('options' in formFields.teachers) {
-				formFields.teachers.options = chooseTeachers();
-
-				if (savedData && savedData[key as keyof typeof savedData]) {
-					formFields.teachers.options.forEach((option) => {
-						if (savedData.teachers.includes(option.value)) {
-							option.checked = true;
-						} else {
-							option.checked = false;
-						}
-					});
-				}
-			}
-		} else if (obj.type === 'submit') {
-			if ('value' in formFields.submit) {
-				if (subject === subjectInfo[subjectInfo.length - 1].subject) {
-					formFields.submit.value = 'Naar overzicht';
+			case 'radio':
+				if (key === 'semester') {
+					setSemester(subject, obj);
 				} else {
-					formFields.submit.value = 'Volgende';
+					setRating(subject, key, obj);
 				}
-			}
+				break;
+
+			case 'checkbox':
+				setTeachers(currentSubject, obj);
+				break;
+
+			case 'submit':
+				const isLast = subject === subjectInfo[subjectInfo.length - 1].subject
+				setSubmitValue(isLast, obj);
+				break;
 		}
 	}
 };
@@ -114,7 +66,7 @@ const getAdjacentUri = (
 	baseUrl: string,
 	direction: 'prev' | 'next' | 'both' = 'both'
 ) => {
-	let adjacent: { prevUri?: any, nextUri?: any } = {};
+	let adjacent: { prevUri?: any; nextUri?: any } = {};
 	if (direction === 'prev' || direction === 'both') {
 		const prevSubject = subjectInfo[subjectInfo.indexOf(currentSubject) - 1];
 		if (prevSubject) {
@@ -141,10 +93,6 @@ router.get('/', (req, res) => {
 	) {
 		subject = subjectInfo[0].subject;
 		return res.redirect(`${req.baseUrl}?vak=${subject}`);
-	}
-
-	if (formFields.subject.type === 'hidden') {
-		formFields.subject.value = subject;
 	}
 
 	currentSubject = subjectInfo.find((subjectInfo) => subjectInfo.subject === subject)!;
@@ -174,46 +122,46 @@ const generateRadioOptions = (name: string, n = 10) => {
 };
 
 // function for generating the options for teachers checkboxes
-const chooseTeachers = () => {
-	const options: { label: string; value: string; id: string }[] = [];
-	if (currentSubject) {
-		currentSubject.teachers.forEach((teacher) => {
-			options.push({
-				label: `${teacher}`,
-				value: `${teacher}`,
-				id: `${teacher.toLowerCase()}`
-			});
-		});
-	} else {
-		teachers.forEach((teacher) => {
-			options.push({
-				label: `${teacher}`,
-				value: `${teacher}`,
-				id: `${teacher.toLowerCase()}`
-			});
-		});
-	}
-	return options;
-};
+// const chooseTeachers = () => {
+// 	const options: { label: string; value: string; id: string }[] = [];
+// 	if (currentSubject) {
+// 		currentSubject.teachers.forEach((teacher) => {
+// 			options.push({
+// 				label: `${teacher}`,
+// 				value: `${teacher}`,
+// 				id: `${teacher.toLowerCase()}`
+// 			});
+// 		});
+// 	} else {
+// 		// teachers.forEach((teacher) => {
+// 		// 	options.push({
+// 		// 		label: `${teacher}`,
+// 		// 		value: `${teacher}`,
+// 		// 		id: `${teacher.toLowerCase()}`
+// 		// 	});
+// 		// });
+// 	}
+// 	return options;
+// };
 
-const teachers = [
-	'Sanne',
-	'Vasilis',
-	'Robert',
-	'Peter-Paul Koch',
-	'Janno',
-	'Declan',
-	'Justus',
-	'Koop',
-	'Joost'
-];
+// const teachers = [
+// 	'Sanne',
+// 	'Vasilis',
+// 	'Robert',
+// 	'Peter-Paul Koch',
+// 	'Janno',
+// 	'Declan',
+// 	'Justus',
+// 	'Koop',
+// 	'Joost'
+// ];
 const subjectInfo = [
 	{ subject: 'css-to-the-rescue', teachers: ['Sanne', 'Vasilis'] },
 	{ subject: 'web-app-from-scratch', teachers: ['Robert', 'Joost'] },
 	{ subject: 'browser-technologies', teachers: ['Vasilis', 'Peter-Paul Koch'] },
 	{ subject: 'progressive-web-apps', teachers: ['Janno', 'Declan'] },
-	{ subject: 'realtime-web', teachers: teachers },
-	{ subject: 'human-centered-design', teachers: teachers },
+	{ subject: 'realtime-web', teachers: [] },
+	{ subject: 'human-centered-design', teachers: [] },
 	{ subject: 'meesterproef', teachers: ['Justus', 'Sanne', 'Joost', 'Vasisilis', 'Koop'] }
 ];
 
