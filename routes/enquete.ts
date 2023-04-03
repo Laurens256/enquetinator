@@ -66,7 +66,7 @@ const setDefaultValues = (subject: string) => {
 			}
 		} else if (obj.type === 'checkbox') {
 			if ('options' in formFields.teachers) {
-				formFields.teachers.options = chooseTeachers(subject);
+				formFields.teachers.options = chooseTeachers();
 
 				if (savedData && savedData[key as keyof typeof savedData]) {
 					formFields.teachers.options.forEach((option) => {
@@ -98,34 +98,36 @@ router.post('/', (req, res) => {
 	// If there are no errors, save the data and redirect to next subject
 	if (saveableData) {
 		saveSubjectData(saveableData);
-		return res.redirect(getNextUri(formData.subject, req.baseUrl));
+		const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
+		return res.redirect(nextUri);
 	} else {
 		for (const [key, message] of Object.entries(errors)) {
 			if (formFields[key] && 'error' in formFields[key]) {
 				formFields[key].error = message;
 			}
 		}
-		res.render('enquete', {
-			...res.locals,
-			formFields,
-			subjectInfo,
-			nextUri: getNextUri(formData.subject, req.baseUrl)
-		});
+		res.redirect('back');
 	}
 });
 
-const getNextUri = (subject: string, baseUrl: string) => {
-	const currentSubject = subjectInfo.find(
-		(subjectInfo) => subjectInfo.subject === subject
-	)!;
-	const nextSubject = subjectInfo[subjectInfo.indexOf(currentSubject) + 1];
-
-	if (nextSubject) {
-		return `${baseUrl}?vak=${nextSubject.subject}`;
-	} else {
-		return `${baseUrl}?vak=${subjectInfo[0].subject}`;
-		// return`${baseUrl}/overview`;
+const getAdjacentUri = (
+	baseUrl: string,
+	direction: 'prev' | 'next' | 'both' = 'both'
+) => {
+	let adjacent: { prevUri?: any, nextUri?: any } = {};
+	if (direction === 'prev' || direction === 'both') {
+		const prevSubject = subjectInfo[subjectInfo.indexOf(currentSubject) - 1];
+		if (prevSubject) {
+			adjacent.prevUri = `${baseUrl}?vak=${prevSubject.subject}`;
+		}
 	}
+	if (direction === 'next' || direction === 'both') {
+		const nextSubject = subjectInfo[subjectInfo.indexOf(currentSubject) + 1];
+		if (nextSubject) {
+			adjacent.nextUri = `${baseUrl}?vak=${nextSubject.subject}`;
+		}
+	}
+	return adjacent;
 };
 
 router.get('/', (req, res) => {
@@ -145,18 +147,22 @@ router.get('/', (req, res) => {
 		formFields.subject.value = subject;
 	}
 
+	currentSubject = subjectInfo.find((subjectInfo) => subjectInfo.subject === subject)!;
+
 	setDefaultValues(subject);
+
+	const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
 
 	res.render('enquete', {
 		...res.locals,
 		formFields,
 		subjectInfo,
-		nextUri: getNextUri(subject, req.baseUrl)
+		nextUri: nextUri
 	});
 });
 
 export default router;
-export { getNextUri };
+export { getAdjacentUri };
 
 // function for generating the options for the radio buttons, takes in the name for input id and the number of options, defaults to 10.
 const generateRadioOptions = (name: string, n = 10) => {
@@ -168,10 +174,7 @@ const generateRadioOptions = (name: string, n = 10) => {
 };
 
 // function for generating the options for teachers checkboxes
-const chooseTeachers = (subject: string) => {
-	const currentSubject = subjectInfo.find(
-		(subjectInfo) => subjectInfo.subject === subject
-	);
+const chooseTeachers = () => {
 	const options: { label: string; value: string; id: string }[] = [];
 	if (currentSubject) {
 		currentSubject.teachers.forEach((teacher) => {
@@ -193,7 +196,17 @@ const chooseTeachers = (subject: string) => {
 	return options;
 };
 
-const teachers = ['Sanne', 'Vasilis', 'Robert', 'Peter-Paul Koch', 'Janno', 'Declan'];
+const teachers = [
+	'Sanne',
+	'Vasilis',
+	'Robert',
+	'Peter-Paul Koch',
+	'Janno',
+	'Declan',
+	'Justus',
+	'Koop',
+	'Joost'
+];
 const subjectInfo = [
 	{ subject: 'css-to-the-rescue', teachers: ['Sanne', 'Vasilis'] },
 	{ subject: 'web-app-from-scratch', teachers: ['Robert', 'Joost'] },
@@ -201,8 +214,10 @@ const subjectInfo = [
 	{ subject: 'progressive-web-apps', teachers: ['Janno', 'Declan'] },
 	{ subject: 'realtime-web', teachers: teachers },
 	{ subject: 'human-centered-design', teachers: teachers },
-	{ subject: 'meesterproef', teachers: teachers }
+	{ subject: 'meesterproef', teachers: ['Justus', 'Sanne', 'Joost', 'Vasisilis', 'Koop'] }
 ];
+
+let currentSubject = subjectInfo[0];
 
 const formFields: FormFields = {
 	subject: {
