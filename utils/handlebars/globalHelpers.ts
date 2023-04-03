@@ -1,34 +1,44 @@
 export default {
-	toUpperCase: (str: string) => {
-		if(str) {
-			return str.toUpperCase();
-		}
-	},
-
 	spreadAttributes: (attributes: string[]) => {
-		if(attributes) {
+		if (attributes) {
 			return attributes.join(' ');
 		}
 	},
 
 	subjectName: (subject: string) => {
 		if (subject) {
-			if(subject === 'css-to-the-rescue') {
-				return 'CSS to the rescue';
+			if (subject === 'css-to-the-rescue') {
+				return 'CSS To The Rescue';
 			}
 			return subject.replace(/-/g, ' ');
 		}
-		return 'Onbekend vak';
+		return 'Onbekend Vak';
 	},
 
-	eq: function() { return reduceOp(arguments, (a: any, b: any) => a === b); },
-	ne: function() { return reduceOp(arguments, (a: any, b: any) => a !== b); },
-	lt: function() { return reduceOp(arguments, (a: number, b: number) => a  <  b); },
-	gt: function() { return reduceOp(arguments, (a: number, b: number) => a  >  b); },
-	lte: function() { return reduceOp(arguments, (a: number, b: number) => a  <= b); },
-	gte: function() { return reduceOp(arguments, (a: number, b: number) => a  >= b); },
-	and: function() { return reduceOp(arguments, (a: any, b: any) => a  && b); },
-	or: function() { return reduceOp(arguments, (a: any, b: any) => a  || b); },
+	eq: function () {
+		return reduceOp(arguments, (a: any, b: any) => a === b);
+	},
+	ne: function () {
+		return reduceOp(arguments, (a: any, b: any) => a !== b);
+	},
+	lt: function () {
+		return reduceOp(arguments, (a: number, b: number) => a < b);
+	},
+	gt: function () {
+		return reduceOp(arguments, (a: number, b: number) => a > b);
+	},
+	lte: function () {
+		return reduceOp(arguments, (a: number, b: number) => a <= b);
+	},
+	gte: function () {
+		return reduceOp(arguments, (a: number, b: number) => a >= b);
+	},
+	and: function () {
+		return reduceOp(arguments, (a: any, b: any) => a && b);
+	},
+	or: function () {
+		return reduceOp(arguments, (a: any, b: any) => a || b);
+	}
 };
 
 // bron: https://gist.github.com/servel333/21e1eedbd70db5a7cfff327526c72bc5

@@ -18,8 +18,8 @@ const addExtFiles = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const css = {
-	HomeView: ['partials/form', 'partials/inputs/text'],
-	EnqueteView: ['partials/form', 'partials/inputs/text', 'partials/inputs/radio'],
+	HomeView: ['form', 'partials/inputs/text'],
+	EnqueteView: ['form', 'partials/inputs/radio', 'partials/progress', 'partials/enquete'],
 };
 
 const js = {

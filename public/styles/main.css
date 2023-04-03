@@ -62,6 +62,10 @@ button {
 	}
 }
 
+ul {
+	list-style: none;
+}
+
 .underline {
 	position: relative;
 }

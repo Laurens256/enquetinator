@@ -1,0 +1,19 @@
+.progress ul {
+	display: flex;
+	gap: 0.5rem;
+	width: var(--form-width);
+	max-width: var(--form-max-width);
+	margin: 0.5rem auto 0;
+	flex-wrap: wrap;
+}
+
+.progress ul li a {
+	text-decoration: none;
+	color: var(--text-white);
+	border: solid 2px var(--header-bg);
+	border-radius: 5px;
+	font-size: clamp(0.9rem, 1.3rem, 5vw);
+	display: block;
+	padding: 0.5rem 1rem;
+	text-transform: capitalize;
+}

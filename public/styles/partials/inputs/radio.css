@@ -8,13 +8,13 @@ section.optionsection {
 }
 
 section.optionsection > div {
-	display: grid;
-	gap: var(--gap);
-	max-width: var(--max-width);
-	margin: .5rem auto 0;
-	/* zorgt ervoor dat er max n columns worden gemaakt */
 	--gap: 0.5rem;
 	--columns: 11;
+	
+	display: grid;
+	gap: var(--gap);
+	margin: .5rem auto 0;
+	/* zorgt ervoor dat er max n columns worden gemaakt */
 	grid-template-columns: repeat(
 		auto-fit,
 		minmax(
@@ -46,10 +46,11 @@ section.optionsection label {
 	background-color: var(--radio-bg);
 	color: var(--radio-text);
 	transition: border-color 0.2s ease-in-out;
+	cursor: pointer;
 }
 
-section.optionsection input:not(:checked) + label {
-	cursor: pointer;
+section.radiosection input:checked + label {
+	cursor: initial;
 }
 
 section.optionsection input:focus-visible + label,

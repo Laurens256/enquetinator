@@ -1,0 +1,10 @@
+<nav class="progress">
+	<h2></h2>
+	<ul>
+		{{#each subjectInfo}}
+			<li>
+				<a href="/enquete?vak={{this.subject}}">{{subjectName this.subject}}</a>
+			</li>
+		{{/each}}
+	</ul>
+</nav>

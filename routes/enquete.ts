@@ -96,6 +96,7 @@ router.post('/', (req, res) => {
 		res.render('enquete', {
 			...res.locals,
 			formFields,
+			subjectInfo,
 			nextUri: getNextUri(formData.subject, req.baseUrl)
 		});
 	}
@@ -137,6 +138,7 @@ router.get('/', (req, res) => {
 	res.render('enquete', {
 		...res.locals,
 		formFields,
+		subjectInfo,
 		nextUri: getNextUri(subject, req.baseUrl)
 	});
 });

@@ -6,6 +6,8 @@
 				<a href="{{nextUri}}&removesubject={{formFields.subject.value}}" class="underline">Vak Overslaan</a>
 			</div>
 		</header>
+
+		{{> progress subjectInfo=subjectInfo}}
 		
 		<form method='POST' action='/enquete' autocomplete='off' novalidate>
 

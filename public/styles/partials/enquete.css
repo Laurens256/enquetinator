@@ -1,13 +1,4 @@
-@import url('./inputs/submit.css');
-
-main {
-	--form-max-width: 1100px;
-	--form-width: 95%;
-}
-
-div.form-container {
-	width: 100%;
-}
+@import url(./progress.css);
 
 header {
 	--header-height: 10rem;
@@ -68,16 +59,7 @@ header div a:hover::after {
 	transform: translateX(-50%) scale(1);
 }
 
-div.form-container form {
-	width: var(--form-width);
-	max-width: var(--form-max-width);
-	margin: 0 auto 5rem;
-}
 
-input {
-	font-size: 1.2rem;
-	width: 100%;
-}
 
 @media screen and (max-width: 600px) {
 	header {

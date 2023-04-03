@@ -1,0 +1,21 @@
+@import url(./partials/inputs/submit.css);
+
+main {
+	--form-max-width: 1100px;
+	--form-width: 95%;
+}
+
+div.form-container {
+	width: 100%;
+}
+
+div.form-container form {
+	width: var(--form-width);
+	max-width: var(--form-max-width);
+	margin: 0 auto 5rem;
+}
+
+input {
+	font-size: 1.2rem;
+	width: 100%;
+}
