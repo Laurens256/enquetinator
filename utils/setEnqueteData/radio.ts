@@ -1,8 +1,9 @@
 import { globalEnqueteData, globalChosenSemester } from '../formData/saveFormData';
 import { RadioButton } from '../../types/FormField';
+import { TempEnqueteData } from '../../types';
 
-const setSemester = (subject: string, obj: RadioButton) => {
-	const semester = globalEnqueteData[subject]?.semester || globalChosenSemester || NaN;
+const setSemester = (subject: string, obj: RadioButton, tempData?: TempEnqueteData) => {
+	const semester = tempData?.semester || globalEnqueteData[subject]?.semester || globalChosenSemester || NaN;
 
 	// check if the semester has been saved
 	if (!Number.isNaN(semester)) {
@@ -17,8 +18,8 @@ const setSemester = (subject: string, obj: RadioButton) => {
 	}
 };
 
-const setRating = (subject: string, key: string, obj: RadioButton) => {
-	const savedData = globalEnqueteData[subject];
+const setRating = (subject: string, key: string, obj: RadioButton, tempData?: TempEnqueteData) => {
+	const savedData = tempData || globalEnqueteData[subject];
 
 	// check if the subject has data saved
 	if (savedData && savedData[key as keyof typeof savedData]) {
@@ -26,7 +27,7 @@ const setRating = (subject: string, key: string, obj: RadioButton) => {
 
 		// check if the saved value matches one of the options
 		obj.options.forEach((option) => {
-			if (option.value == String(savedValue)) {
+			if (option.value === savedValue) {
 				option.checked = true;
 			} else {
 				option.checked = false;

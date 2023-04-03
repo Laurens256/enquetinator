@@ -3,19 +3,20 @@ import {
 	validateEnqueteData,
 	FormEnqueteData
 } from '../utils/formData/validateEnqueteData';
-import { globalEnqueteData, saveSubjectData } from '../utils/formData/saveFormData';
+import { saveSubjectData } from '../utils/formData/saveFormData';
 
 import { setSemester, setRating } from '../utils/setEnqueteData/radio';
 import { setTeachers } from '../utils/setEnqueteData/checkbox';
 import { setSubject } from '../utils/setEnqueteData/text';
 
-import { FormFields } from '../types';
+import { FormFields, TempEnqueteData } from '../types';
 import { setSubmitValue } from '../utils/setEnqueteData/other';
+import { transformTempData } from '../utils/setEnqueteData/transFormTempData';
 
 const router = express.Router();
 
 // check the radio button that matches the value of the form data
-const setDefaultValues = (subject: string) => {
+const setDefaultValues = (subject: string, tempData?: TempEnqueteData) => {
 	for (const [key, obj] of Object.entries(formFields)) {
 		switch (obj.type) {
 			case 'hidden':
@@ -24,9 +25,9 @@ const setDefaultValues = (subject: string) => {
 
 			case 'radio':
 				if (key === 'semester') {
-					setSemester(subject, obj);
+					setSemester(subject, obj, tempData);
 				} else {
-					setRating(subject, key, obj);
+					setRating(subject, key, obj, tempData);
 				}
 				break;
 
@@ -58,6 +59,8 @@ router.post('/', (req, res) => {
 				formFields[key].error = message;
 			}
 		}
+		const tempData = transformTempData(formData);
+		setDefaultValues(currentSubject.subject, tempData);
 		res.redirect('back');
 	}
 });
@@ -121,40 +124,6 @@ const generateRadioOptions = (name: string, n = 10) => {
 	return options;
 };
 
-// function for generating the options for teachers checkboxes
-// const chooseTeachers = () => {
-// 	const options: { label: string; value: string; id: string }[] = [];
-// 	if (currentSubject) {
-// 		currentSubject.teachers.forEach((teacher) => {
-// 			options.push({
-// 				label: `${teacher}`,
-// 				value: `${teacher}`,
-// 				id: `${teacher.toLowerCase()}`
-// 			});
-// 		});
-// 	} else {
-// 		// teachers.forEach((teacher) => {
-// 		// 	options.push({
-// 		// 		label: `${teacher}`,
-// 		// 		value: `${teacher}`,
-// 		// 		id: `${teacher.toLowerCase()}`
-// 		// 	});
-// 		// });
-// 	}
-// 	return options;
-// };
-
-// const teachers = [
-// 	'Sanne',
-// 	'Vasilis',
-// 	'Robert',
-// 	'Peter-Paul Koch',
-// 	'Janno',
-// 	'Declan',
-// 	'Justus',
-// 	'Koop',
-// 	'Joost'
-// ];
 const subjectInfo = [
 	{ subject: 'css-to-the-rescue', teachers: ['Sanne', 'Vasilis'] },
 	{ subject: 'web-app-from-scratch', teachers: ['Robert', 'Joost'] },

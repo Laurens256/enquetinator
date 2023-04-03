@@ -1,3 +1,13 @@
+type TempEnqueteData = {
+	subject: string;
+	teachers: any;
+	semester: number;
+	overall_rating: number;
+	difficulty_rating: number;
+	explanation_rating: number;
+	understanding_rating: number;
+};
+
 type FormEnqueteData = {
 	subject: string;
 	teachers: any;
@@ -20,4 +30,4 @@ type SaveableEnqueteData = {
 	};
 };
 
-export { FormEnqueteData, SaveableEnqueteData };
+export { FormEnqueteData, SaveableEnqueteData, TempEnqueteData };
