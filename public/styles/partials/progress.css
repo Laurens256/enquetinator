@@ -1,7 +1,7 @@
 .progress {
 	width: var(--form-width);
 	max-width: var(--form-max-width);
-	margin: 0.5rem auto 0;
+	margin: 2rem auto 1rem;
 }
 
 .progress ul {

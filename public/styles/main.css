@@ -40,6 +40,7 @@ button {
 	--secondary-text: #333;
 	--inverted-text: #fff;
 	--link-color: #0969da;
+	--error-color: #f00;
 
 	/* input colors */
 	--radio-bg: #56addb;
@@ -59,6 +60,7 @@ button {
 		--inverted-text: #111;
 
 		--link-color: #3976cb;
+		--error-color: #f00;
 	}
 }
 

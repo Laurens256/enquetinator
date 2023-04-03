@@ -41,6 +41,8 @@ const validateEnqueteData = (formData: FormEnqueteData) => {
 	fields.forEach((field) => {
 		if (!formData[field as keyof typeof formData]) {
 			errors[field] = 'Dit veld is verplicht';
+		} else {
+			errors[field] = '';
 		}
 	});
 

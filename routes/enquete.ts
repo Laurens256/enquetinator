@@ -8,16 +8,26 @@ import { saveSubjectData } from '../utils/formData/saveFormData';
 import { setSemester, setRating } from '../utils/setEnqueteData/radio';
 import { setTeachers } from '../utils/setEnqueteData/checkbox';
 import { setSubject } from '../utils/setEnqueteData/text';
+import { setSubmitValue } from '../utils/setEnqueteData/other';
 
 import { FormFields, TempEnqueteData } from '../types';
-import { setSubmitValue } from '../utils/setEnqueteData/other';
 import { transformTempData } from '../utils/setEnqueteData/transFormTempData';
 
 const router = express.Router();
 
 // check the radio button that matches the value of the form data
-const setDefaultValues = (subject: string, tempData?: TempEnqueteData) => {
+const setDefaultValues = (
+	subject: string,
+	tempErrors: any,
+	tempData?: TempEnqueteData
+) => {
 	for (const [key, obj] of Object.entries(formFields)) {
+		if (key in tempErrors) {
+			obj.error = tempErrors[key];
+		} else {
+			obj.error = '';
+		}
+
 		switch (obj.type) {
 			case 'hidden':
 				setSubject(subject, obj);
@@ -65,11 +75,13 @@ const getAdjacentUri = (
 	return adjacent;
 };
 
+let tempErrors = {};
 let tempData: TempEnqueteData | undefined;
 router.post('/', (req, res) => {
 	const formData: FormEnqueteData = req.body;
 
 	const { saveableData, errors } = validateEnqueteData(formData);
+	tempErrors = errors;
 
 	// If there are no errors, save the data and redirect to next subject
 	if (saveableData) {
@@ -78,17 +90,12 @@ router.post('/', (req, res) => {
 		const { nextUri } = getAdjacentUri(req.baseUrl, 'next');
 		return res.redirect(nextUri!);
 	} else {
-		for (const [key, message] of Object.entries(errors)) {
-			if (formFields[key] && 'error' in formFields[key]) {
-				formFields[key].error = message;
-			}
-		}
 		tempData = transformTempData(formData);
 		res.redirect(`${req.baseUrl}?vak=${formData.subject}`);
 	}
 });
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 	// Check if subject is valid and redirect if not
 	let subject = req.query.vak;
 	if (
@@ -103,8 +110,9 @@ router.get('/', (req, res) => {
 
 	currentSubject = subjectInfo.find((subjectInfo) => subjectInfo.subject === subject)!;
 
-	setDefaultValues(subject, tempData);
+	setDefaultValues(subject, tempErrors, tempData);
 	tempData = undefined;
+	tempErrors = {};
 
 	const progress = Math.round(
 		(subjectInfo.indexOf(currentSubject) / subjectInfo.length) * 100
