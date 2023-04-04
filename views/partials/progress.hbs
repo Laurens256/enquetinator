@@ -2,17 +2,14 @@
 	<ul>
 		{{#if adjacentUri.prevUri}}
 			<li>
-				<a href='{{adjacentUri.prevUri}}' class="underline">Terug</a>
+				<a href='{{adjacentUri.prevUri}}' class='underline'>Terug</a>
 			</li>
 		{{/if}}
 
 		<li class='progressbar'>
 			<label>Enquete
-				{{progress}}% voltooid.<progress
-					value='{{progress}}'
-					min='0'
-					max='100'
-				></progress>
+				{{progress}}% voltooid.<progress value='{{progress}}' min='0' max='100'>
+				</progress>
 			</label>
 		</li>
 	</ul>

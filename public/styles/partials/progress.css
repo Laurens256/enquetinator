@@ -20,7 +20,7 @@
 .progress ul li a {
 	width: 100%;
 	text-decoration: none;
-	color: var(--text-white);
+	color: var(--primary-text);
 	border: solid 2px var(--header-bg);
 	border-radius: 5px;
 	font-size: clamp(0.9rem, 1.3rem, 5vw);
@@ -31,6 +31,7 @@
 
 .progress ul li a:focus-visible,
 .progress ul li a:hover {
+	color: var(--text-white);
 	background-color: var(--header-bg);
 }
 
@@ -53,6 +54,7 @@
 }
 
 progress[value] {
+	position: relative;
 	appearance: none;
 
 	width: 100%;

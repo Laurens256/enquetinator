@@ -59,6 +59,14 @@ header div h1 {
 	text-align: center;
 }
 
+header div section {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	justify-content: center;
+	margin: 0 1rem;
+}
+
 header div a {
 	color: var(--text-white);
 	font-size: clamp(.6rem, 1rem, 5vw);
@@ -67,6 +75,7 @@ header div a {
 	padding: 0.5rem 0.8rem;
 	text-decoration: none;
 	transition: all 0.2s ease-in-out;
+	text-align: center;
 }
 
 header div a:focus-visible,
