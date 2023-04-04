@@ -97,3 +97,7 @@ header div a:hover::after {
 		gap: 0.5rem;
 	}
 }
+
+p[class^="error"] {
+	color: var(--error-color);
+}
