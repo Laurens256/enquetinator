@@ -27,7 +27,7 @@ button {
 	--form-width: 95%;
 
 	/* static colors */
-	--text-black: #333;
+	--text-black: #111;
 	--text-white: #fff;
 
 	/* bg colors */
@@ -41,10 +41,11 @@ button {
 	--inverted-text: #fff;
 	--link-color: #0969da;
 	--error-color: #f00;
+	--checkmark-color: #41a145;
 
 	/* input colors */
 	--input-text-border: #363636;
-	--input-text-bg-focus: #fff;
+	--input-text-bg-focus: #efefef;
 	--radio-bg: #56addb;
 	--radio-text: #111;
 	--radio-selected: #98b95c;
@@ -73,6 +74,7 @@ ul {
 	list-style: none;
 }
 
+span.checkmark,
 .underline {
 	position: relative;
 }
@@ -93,4 +95,34 @@ ul {
 	.underline::after {
 		transition: none !important;
 	}
+}
+
+
+/* checkmark */
+span.checkmark {
+	--borderWidth: 4px;
+	--height: 20px;
+	--width: calc(var(--height) / 2);
+
+	height: var(--height);
+	width: var(--width);
+}
+
+span.checkmark::before {
+	content: '';
+	position: absolute;
+	background-color: var(--checkmark-color);
+	width: 1.9rem;
+	height: 1.9rem;
+	border-radius: 50%;
+}
+
+span.checkmark::after {
+	content: '';
+	position: absolute;
+	transform: rotate(45deg) translate(90%, -25%);
+	height: 100%;
+	width: 100%;
+	border-bottom: var(--borderWidth) solid var(--text-white);
+	border-right: var(--borderWidth) solid var(--text-white);
 }

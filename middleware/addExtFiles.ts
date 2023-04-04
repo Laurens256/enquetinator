@@ -20,11 +20,13 @@ const addExtFiles = (req: Request, res: Response, next: NextFunction) => {
 const css = {
 	HomeView: ['form', 'partials/inputs/text'],
 	EnqueteView: ['form', 'partials/inputs/radio', 'partials/progress'],
+	OverviewView: ['overview'],
 };
 
 const js = {
 	HomeView: ['home'],
 	EnqueteView: ['enquete'],
+	// OverviewView: ['overview'],
 };
 
 export { addExtFiles };

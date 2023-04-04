@@ -39,6 +39,10 @@
 				{{!-- <button type="reset" class="{{spreadAttributes this.classes}}">Velden legen</button> --}}
 			{{!-- {{/if}} --}}
 
+			{{#this.toOverview}}
+				<a href="/overview" class="underline">Naar Overzicht</a>
+			{{/this.toOverview}}
+
 			<button type="{{this.type}}" class="{{spreadAttributes this.classes}}">{{this.value}}</button>
 		</section>
 
@@ -63,7 +67,7 @@
 					{{#this.pattern}}pattern="{{this}}"{{/this.pattern}}
 					{{#this.required}}required{{/this.required}}
 				/>
-				<span></span>
+				<span class="checkmark"></span>
 			</div>
 	{{/if}}
 

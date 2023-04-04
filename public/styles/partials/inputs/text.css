@@ -12,6 +12,7 @@ input[type='email'] {
 input[type='text']:focus-visible,
 input[type='email']:focus-visible {
 	outline-color: var(--header-bg);
+	background-color: var(--input-text-bg-focus);
 }
 
 /* ----------------- */
@@ -53,39 +54,14 @@ div.inputwrapper {
 	position: relative;
 }
 
-div.inputwrapper span {
-	--borderWidth: 4px;
-	--height: 20px;
-	--width: calc(var(--height) / 2);
-
-	height: var(--height);
-	width: var(--width);
+div.inputwrapper span.checkmark {
+	display: none;
 	position: absolute;
 	right: 2rem;
 	top: calc(50% - var(--height) / 1.35);
-	display: none;
 }
 
 input[type='text']:user-valid + span,
 input[type='email']:user-valid + span {
 	display: inline;
-}
-
-div.inputwrapper span::before {
-	content: '';
-	position: absolute;
-	background-color: #41a145;
-	width: 1.9rem;
-	height: 1.9rem;
-	border-radius: 50%;
-}
-
-div.inputwrapper span::after {
-	content: '';
-	position: absolute;
-	transform: rotate(45deg) translate(90%, -25%);
-	height: 100%;
-	width: 100%;
-	border-bottom: var(--borderWidth) solid var(--text-white);
-	border-right: var(--borderWidth) solid var(--text-white);
 }

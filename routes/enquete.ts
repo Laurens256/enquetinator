@@ -69,7 +69,7 @@ const getAdjacentUri = (
 		if (nextSubject) {
 			adjacent.nextUri = `${baseUrl}?vak=${nextSubject.subject}`;
 		} else {
-			adjacent.nextUri = `${baseUrl}/overview`;
+			adjacent.nextUri = '/overview';
 		}
 	}
 	return adjacent;
@@ -128,7 +128,7 @@ router.get('/', async (req, res) => {
 });
 
 export default router;
-export { getAdjacentUri };
+export { getAdjacentUri, subjectInfo };
 
 // function for generating the options for the radio buttons, takes in the name for input id and the number of options, defaults to 10.
 const generateRadioOptions = (name: string, n = 10) => {
@@ -210,6 +210,7 @@ const formFields: FormFields = {
 		type: 'submit',
 		value: '',
 		classes: ['underline'],
-		resetable: true
+		resetable: true,
+		toOverview: true
 	}
 };

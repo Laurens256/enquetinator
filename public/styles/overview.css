@@ -1,0 +1,137 @@
+header {
+	background-color: var(--header-bg);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--text-white);
+	height: 10rem;
+}
+
+header div {
+	display: flex;
+	flex-direction: column;
+	width: var(--form-width);
+	max-width: var(--form-max-width);
+	margin: 0 auto;
+}
+
+main {
+	width: var(--form-width);
+	max-width: var(--form-max-width);
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 1rem;
+	height: calc(100vh - 18rem);
+	min-height: 30rem;
+}
+
+main article {
+	background-color: var(--input-divider);
+	width: 100%;
+	max-width: 500px;
+	height: 100%;
+	max-height: 22rem;
+	padding: 2rem;
+	border-radius: 10px;
+}
+
+main article ul {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	overflow-y: auto;
+}
+
+main article ul a {
+	color: var(--inverted-text);
+	font-size: 1.2rem;
+	text-transform: capitalize;
+	text-decoration: none;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	padding: 0.5rem 1.5rem 0.5rem 0;
+	font-weight: bold;
+}
+
+main article ul a:hover,
+main article ul a:focus-visible {
+	text-decoration: underline;
+}
+
+main article ul a span {
+	margin-top: -4px;
+}
+
+main > a {
+	color: var(--text-white);
+	font-size: 1.2rem;
+	width: 100%;
+	max-width: 500px;
+	padding: 0.7rem;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 7px;
+	border: solid 2px var(--input-divider);
+	background-color: var(--primary-bg);
+	color: var(--primary-text);
+	transition: all .2s ease-in-out;
+	text-decoration: none;
+}
+
+main > a:focus-visible,
+main > a:hover {
+	border-color: var(--input-divider);
+	background-color: var(--input-divider);
+	color: var(--inverted-text);
+}
+
+main > a.underline::after {
+	width: 30%;
+	max-width: 100px;
+}
+
+main > a:focus-visible::after,
+main > a:hover::after{
+	transform: translateX(-50%) scale(1);
+}
+
+/* kruisje */
+span.cross.checkmark::before {
+	background-color: var(--error-color);
+} 
+
+span.cross.checkmark::after {
+	content: '✕';
+	border: none;
+	transform: translate(55%, 5%);
+	font-size: 1.5rem;
+}
+
+@media screen and (max-width: 450px) {
+	main article {
+		padding: .5rem;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	main article ul a span {
+		display: none;
+	}
+
+	main article ul {
+		gap: .2rem;
+	}
+
+	main article ul a.completed {
+		background-color: var(--checkmark-color);
+	}
+
+	main article ul a.uncompleted {
+		background-color: var(--error-color);
+	}
+}

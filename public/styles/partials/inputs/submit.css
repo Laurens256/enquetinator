@@ -6,6 +6,7 @@
 	height: 3rem;
 }
 
+.submitsection a,
 .submitsection button {
 	cursor: pointer;
 	padding: 0.5rem;
@@ -13,6 +14,13 @@
 	border-radius: 10px;
 	transition: all 0.2s ease-in-out;
 	font-size: 1.1rem;
+}
+
+.submitsection a {
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .submitsection button:only-child {
@@ -24,7 +32,7 @@
 	outline-offset: 3px;
 }
 
-/* reset button */
+/* submit button */
 .submitsection button[type='submit'],
 .submitsection button[type='submit'] {
 	border-color: var(--input-divider);
@@ -38,13 +46,16 @@
 	color: var(--primary-text);
 }
 
-/* submit button */
+/* reset button */
+.submitsection a,
 .submitsection button[type='reset'] {
 	border-color: var(--radio-bg);
 	background-color: var(--radio-bg);
 	color: var(--radio-text);
 }
 
+.submitsection a:focus-visible,
+.submitsection a:hover,
 .submitsection button[type='reset']:focus-visible,
 .submitsection button[type='reset']:hover {
 	background-color: var(--primary-bg);
@@ -52,12 +63,15 @@
 }
 
 /* underline dingetj */
+.submitsection a::after,
 .submitsection button::after,
 .submitsection button::after {
 	width: 5em;
 	max-width: 95%;
 }
 
+.submitsection a:focus-visible::after,
+.submitsection a:hover::after,
 .submitsection button:focus-visible::after,
 .submitsection button:hover::after {
 	transform: translateX(-50%) scale(1);

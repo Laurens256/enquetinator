@@ -46,6 +46,7 @@ interface SubmitButton {
 	resetable?: boolean;
 	classes?: string[];
 	error?: string;
+	toOverview?: boolean;
 }
 
 interface HiddenInput {

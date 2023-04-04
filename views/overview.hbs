@@ -1,0 +1,21 @@
+<header>
+	<div>
+		<h1>Overzicht</h1>
+		<p>Controleer je antwoorden voor het inleveren</p>
+	</div>
+</header>
+
+<main>
+	<article>
+		<ul>
+			{{#each completeSubjects}}
+				<li>
+					<a class="{{#if this}}completed{{else}}uncompleted{{/if}}" href='/enquete?vak={{@key}}'>{{subjectName @key}}
+						<span class="{{#if this}}checkmark{{else}}cross{{/if}} checkmark"></span>
+					</a>
+				</li>
+			{{/each}}
+		</ul>
+	</article>
+	<a href="#" class="underline">Verzenden</a>
+</main>
