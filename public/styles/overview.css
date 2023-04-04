@@ -54,12 +54,11 @@ main article ul a {
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
+	align-items: center;
 	font-weight: bold;
-}
-
-main article ul a:hover,
-main article ul a:focus-visible {
 	text-decoration: underline;
+	text-underline-offset: 2px;
+	position: relative;
 }
 
 main > a {
