@@ -5,6 +5,7 @@ section.optionsection {
 	padding: 2.5rem 0;
 	border-bottom: var(--link-color) solid 2px;
 	border-bottom: #bb9af7 solid 2px;
+	position: relative;
 }
 
 section.optionsection > div {
@@ -33,7 +34,9 @@ section.optionsection h2 {
 }
 
 section.optionsection input {
-	position: fixed;
+	position: absolute;
+	height: 100%;
+	top: 0;
 	opacity: 0;
 	pointer-events: none;
 }

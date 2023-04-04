@@ -49,7 +49,7 @@
 	{{!-- all other input types; text, number etc. --}}
 		{{else}}
 			<div class="inputlabel">
-				<label for="{{this.name}}">{{this.label}}</label>
+				<label for="{{@key}}">{{this.label}}</label>
 				<p class="error-{{@key}}">{{#if (ne this.error '')}}*{{this.error}}{{/if}}</p>
 			</div>
 
