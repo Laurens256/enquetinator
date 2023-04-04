@@ -4,7 +4,7 @@ De enquetinator is een server side rendered enquete over de minor: Web Design & 
 ## Features
 * [x] Server side rendered
 * [x] Functioneel zonder client side Javascript
-* [ ] Client side validation, fallback server side validation
+* [x] Client side validation, fallback server side validation
 * [x] Donker & licht thema
 * [x] Extra getest op accessibility
 
@@ -15,7 +15,7 @@ De enquetinator is een server side rendered enquete over de minor: Web Design & 
 * [x] Samsung Internet v20.0.3.10
 * [ ] Safari Desktop v?
 * [ ] Safari Mobile v?
-* [ ] Flow? v?
+* [x] Flow v6.9.0 (Linux Mint)
 
 ## Testverslag
 
