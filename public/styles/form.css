@@ -79,11 +79,6 @@ header div a.underline::after {
 	width: 50%;
 }
 
-header div a:focus-visible::after,
-header div a:hover::after {
-	transform: translateX(-50%) scale(1);
-}
-
 
 
 @media screen and (max-width: 600px) {

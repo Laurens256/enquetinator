@@ -70,13 +70,6 @@
 	max-width: 95%;
 }
 
-.submitsection a:focus-visible::after,
-.submitsection a:hover::after,
-.submitsection button:focus-visible::after,
-.submitsection button:hover::after {
-	transform: translateX(-50%) scale(1);
-}
-
 @media screen and (max-width: 600px) {
 	.submitsection {
 		grid-template-columns: 1fr;

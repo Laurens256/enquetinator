@@ -10,8 +10,10 @@
 		<ul>
 			{{#each completeSubjects}}
 				<li>
-					<a class="{{#if this}}completed{{else}}uncompleted{{/if}}" href='/enquete?vak={{@key}}'>{{subjectName @key}}
-						<div class="{{#if this}}checkmark{{else}}cross{{/if}} checkmark"></div>
+					<a class="{{#if this}}complete{{else}}incomplete{{/if}}" href='/enquete?vak={{@key}}'>{{subjectName @key}}
+						<div class="valid-icon{{#if this}}{{else}} invalid{{/if}}">
+							<span>{{#if this}}Ingevuld{{else}}Niet ingevuld{{/if}}</span>
+						</div>
 					</a>
 				</li>
 			{{/each}}

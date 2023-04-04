@@ -20,12 +20,24 @@
 .progress ul li a {
 	width: 100%;
 	text-decoration: none;
-	color: var(--primary-text);
+	color: var(--text-white);
 	border: solid 2px var(--header-bg);
 	border-radius: 5px;
 	font-size: clamp(0.9rem, 1.3rem, 5vw);
 	padding: 0.5rem 1rem;
 	text-align: center;
+	transition: all .2s ease-in-out;
+}
+
+.progress ul li a:focus-visible,
+.progress ul li a:hover {
+	background-color: var(--header-bg);
+}
+
+.progress ul li a::after {
+	margin-bottom: -4px;
+	width: 20%;
+	max-width: 100px;
 }
 
 .progress ul li.progressbar {
@@ -36,7 +48,7 @@
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	gap: .2em;
+	gap: 0.2em;
 	width: 100%;
 }
 
@@ -60,7 +72,6 @@ progress[value]::-webkit-progress-value {
 progress[value]::-moz-progress-bar {
 	background-color: var(--header-bg);
 }
-
 
 @media screen and (max-width: 768px) {
 	.progress ul {

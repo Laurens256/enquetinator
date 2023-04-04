@@ -78,3 +78,7 @@ section.optionsection input:checked + label {
 section.optionsection input:checked + label.underline::after {
 	transform: translateX(-50%) scale(1);
 }
+
+section.optionsection input:not(:checked) + label.underline::after {
+	transform: translateX(-50%) scale(0);
+}
