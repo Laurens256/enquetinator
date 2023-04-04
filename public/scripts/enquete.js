@@ -25,6 +25,7 @@ const handleFormSubmit = (e) => {
 				behavior: 'smooth',
 				block: 'center'
 			});
+			firstError.focus();
 		}
 	}
 };
