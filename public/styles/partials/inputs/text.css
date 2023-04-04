@@ -1,50 +1,91 @@
-/* zorgt ervoor dat de pijltjes niet worden getoond voor number input */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-	display: none;
-}
-
-input[type='number'] {
-	appearance: textfield;
-}
-
 /* ----------------- */
 /*     text input    */
 /* ----------------- */
-input[type='number'],
 input[type='text'],
 input[type='email'] {
 	display: block;
-	padding: 0.5rem;
-	border: 2px solid #ccc;
+	padding: 0.5rem 3rem 0.5rem 0.5rem;
+	border: none;
+	outline: solid 2.5px var(--input-text-border);
 }
 
+input[type='text']:focus-visible,
+input[type='email']:focus-visible {
+	outline-color: var(--header-bg);
+}
 
 /* ----------------- */
 /*   error message   */
 /* ----------------- */
-input[type='number']:not([data-error-msg='']),
-input[type='text']:not([data-error-msg='']),
-input[type='email']:not([data-error-msg='']) {
-	border: 2px solid var(--error-color);
+input[type='text'][data-error-msg='']:user-invalid,
+input[type='email'][data-error-msg='']:user-invalid,
+input[type='text']:not(:valid):not([data-error-msg='']),
+input[type='email']:not(:valid):not([data-error-msg='']) {
+	outline-color: var(--error-color);
 }
 
 div.inputlabel {
+	font-size: clamp(0.8rem, 1.2rem, 8vw);
 	display: flex;
 	gap: 1rem;
 	align-items: end;
+	margin-top: 1rem;
+	margin-bottom: 2px;
 }
 
 div.inputlabel p {
 	color: var(--error-color);
-	font-size: 0.85rem;
+	font-size: 0.95rem;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
 	div.inputlabel {
 		flex-direction: column;
 		gap: 0;
 		align-items: start;
 	}
+}
 
+/* ----------------- */
+/*   valid message   */
+/* ----------------- */
+div.inputwrapper {
+	position: relative;
+}
+
+div.inputwrapper span {
+	--borderWidth: 4px;
+	--height: 20px;
+	--width: calc(var(--height) / 2);
+
+	height: var(--height);
+	width: var(--width);
+	position: absolute;
+	right: 2rem;
+	top: calc(50% - var(--height) / 1.35);
+	display: none;
+}
+
+input[type='text']:user-valid + span,
+input[type='email']:user-valid + span {
+	display: inline;
+}
+
+div.inputwrapper span::before {
+	content: '';
+	position: absolute;
+	background-color: #41a145;
+	width: 1.9rem;
+	height: 1.9rem;
+	border-radius: 50%;
+}
+
+div.inputwrapper span::after {
+	content: '';
+	position: absolute;
+	transform: rotate(45deg) translate(90%, -25%);
+	height: 100%;
+	width: 100%;
+	border-bottom: var(--borderWidth) solid var(--text-white);
+	border-right: var(--borderWidth) solid var(--text-white);
 }

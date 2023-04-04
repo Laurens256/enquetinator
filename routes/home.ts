@@ -12,28 +12,32 @@ const formFields: FormFields = {
 		label: 'Naam',
 		autocomplete: 'name',
 		required: true,
-		value: 'a',
-		error: ''
+		value: '',
+		error: '',
 	},
 	studentnumber: {
-		type: 'number',
+		type: 'text',
 		label: 'Studentnummer',
 		autocomplete: 'off',
 		required: true,
-		value: '123456789',
-		error: ''
+		value: '',
+		error: '',
+		pattern: '[0-9]{9}',
+		maxlength: 9,
 	},
 	email: {
 		type: 'email',
 		label: 'Email',
 		autocomplete: 'email',
 		required: true,
-		value: 'ddsfs@gsdfd.co',
-		error: ''
+		value: '',
+		error: '',
+		pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
 	},
 	submit: {
 		type: 'submit',
-		value: 'Verstuur'
+		value: 'Verstuur',
+		classes: ['underline']
 	}
 };
 

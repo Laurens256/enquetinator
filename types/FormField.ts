@@ -13,6 +13,9 @@ interface TextField extends DefaultFormInput {
 	type: 'text' | 'number' | 'email';
 	value: string;
 	autocomplete?: string;
+	placeholder?: string;
+	pattern?: string;
+	maxlength?: number;
 }
 
 interface RadioButton extends DefaultFormInput {

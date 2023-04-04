@@ -19,3 +19,81 @@ input {
 	font-size: 1.2rem;
 	width: 100%;
 }
+
+
+header {
+	--header-height: 10rem;
+	--header-top: calc(var(--header-height) / 10 * 6 * -1);
+	--heading-top: calc((var(--header-height) + var(--header-top)) / 4);
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--header-bg);
+	color: var(--text-white);
+	position: sticky;
+	z-index: 3;
+	top: var(--header-top);
+	height: var(--header-height);
+}
+
+header.home {
+	margin-bottom: 3rem;
+}
+
+header div {
+	position: sticky;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	top: var(--heading-top);
+
+	width: var(--form-width);
+	max-width: var(--form-max-width);
+	margin: 0 auto;
+}
+
+header div h1 {
+	text-transform: capitalize;
+	font-size: clamp(1rem, 2rem, 7vw);
+	text-align: center;
+}
+
+header div a {
+	color: var(--text-white);
+	font-size: clamp(.6rem, 1rem, 5vw);
+	border: solid 2px currentColor;
+	border-radius: 5px;
+	padding: 0.5rem 0.8rem;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+}
+
+header div a:focus-visible,
+header div a:hover {
+	background-color: var(--text-white);
+	color: var(--header-bg);
+}
+
+header div a.underline::after {
+	width: 50%;
+}
+
+header div a:focus-visible::after,
+header div a:hover::after {
+	transform: translateX(-50%) scale(1);
+}
+
+
+
+@media screen and (max-width: 600px) {
+	header {
+		--header-top: calc(var(--header-height) / 10 * 4 * -1);
+		--heading-top: calc((var(--header-height) + var(--header-top)) / 4 - 1rem);
+	}
+
+	header div {
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+}

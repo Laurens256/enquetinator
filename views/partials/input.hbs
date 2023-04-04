@@ -46,19 +46,25 @@
 		{{else}}
 			<div class="inputlabel">
 				<label for="{{this.name}}">{{this.label}}</label>
-				<p class="error-{{@key}}">{{this.error}}</p>
+				<p class="error-{{@key}}">{{#if (ne this.error '')}}*{{this.error}}{{/if}}</p>
 			</div>
 
-		<input 
-			type="{{this.type}}"
-			name="{{@key}}"
-			id="{{@key}}"
-			value="{{this.value}}"
-			autocomplete="{{this.autocomplete}}"
-			data-error-msg="{{this.error}}"
-			{{#this.required}}required{{/this.required}}
-		/>
+			<div class="inputwrapper">
+				<input 
+					type="{{this.type}}"
+					name="{{@key}}"
+					id="{{@key}}"
+					value="{{this.value}}"
+					data-error-msg="{{this.error}}"
+					placeholder=""
 
+					{{#this.autocomplete}}autocomplete="{{this}}"{{/this.autocomplete}}
+					{{#this.maxlength}}maxlength="{{this}}"{{/this.maxlength}}
+					{{#this.pattern}}pattern="{{this}}"{{/this.pattern}}
+					{{#this.required}}required{{/this.required}}
+				/>
+				<span></span>
+			</div>
 	{{/if}}
 
 {{/each}}

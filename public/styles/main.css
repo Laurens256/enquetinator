@@ -43,6 +43,8 @@ button {
 	--error-color: #f00;
 
 	/* input colors */
+	--input-text-border: #363636;
+	--input-text-bg-focus: #fff;
 	--radio-bg: #56addb;
 	--radio-text: #111;
 	--radio-selected: #98b95c;
@@ -60,7 +62,10 @@ button {
 		--inverted-text: #111;
 
 		--link-color: #3976cb;
-		--error-color: #f00;
+		--error-color: #ff8f2e;
+
+		--input-text-border: #ccc;
+		--input-text-bg-focus: #35374d;
 	}
 }
 
