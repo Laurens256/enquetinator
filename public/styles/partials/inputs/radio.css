@@ -1,14 +1,16 @@
 /* ----------------- */
 /*    radio inputs   */
 /* ----------------- */
-section.optionsection {
-	padding: 2.5rem 0;
+fieldset.optionsection {
+	padding-bottom: 2.5rem;
+	margin-top: 2.5rem;
 	border-bottom: var(--link-color) solid 2px;
+	border: 0;
 	border-bottom: #bb9af7 solid 2px;
 	position: relative;
 }
 
-section.optionsection > div {
+fieldset.optionsection > div {
 	--gap: 0.5rem;
 	--columns: 11;
 	
@@ -25,15 +27,15 @@ section.optionsection > div {
 	);
 }
 
-section.checkboxsection > div {
+fieldset.checkboxsection > div {
 	--columns: 5;
 }
 
-section.optionsection h2 {
+fieldset.optionsection legend {
 	font-size: 1.3rem;
 }
 
-section.optionsection input {
+fieldset.optionsection input {
 	position: absolute;
 	height: 100%;
 	top: 0;
@@ -41,7 +43,7 @@ section.optionsection input {
 	pointer-events: none;
 }
 
-section.optionsection label {
+fieldset.optionsection label {
 	font-size: 1.2rem;
 	user-select: none;
 	padding: 0.7rem;
@@ -57,31 +59,31 @@ section.optionsection label {
 	white-space: nowrap;
 }
 
-section.radiosection input:checked + label {
+fieldset.radiosection input:checked + label {
 	cursor: initial;
 }
 
-section.optionsection input:focus-visible + label,
-section.optionsection input:not(:checked) + label:hover {
+fieldset.optionsection input:focus-visible + label,
+fieldset.optionsection input:not(:checked) + label:hover {
 	border-color: var(--primary-text);
 }
 
-section.optionsection input:focus-visible + label {
+fieldset.optionsection input:focus-visible + label {
 	outline: solid 2px var(--primary-text);
 	outline-offset: 2px;
 }
 
-section.optionsection input:checked + label {
+fieldset.optionsection input:checked + label {
 	background-color: var(--radio-selected);
 	text-shadow: 1px 0 0 currentColor;
 }
 
 
 /* active state underline komt uit main.css */
-section.optionsection input:checked + label.underline::after {
+fieldset.optionsection input:checked + label.underline::after {
 	transform: translateX(-50%) scale(1);
 }
 
-section.optionsection input:not(:checked) + label.underline::after {
+fieldset.optionsection input:not(:checked) + label.underline::after {
 	transform: translateX(-50%) scale(0);
 }

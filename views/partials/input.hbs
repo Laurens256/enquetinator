@@ -10,11 +10,11 @@
 
 	{{!-- radio button section & checkbox section --}}
 	{{else if (or (eq this.type 'radio') (eq this.type 'checkbox'))}}
-		<section 
+		<fieldset 
 		class="optionsection 
 		{{#if (eq this.type 'radio')}}radiosection{{/if}}
 		{{#if (eq this.type 'checkbox')}}checkboxsection{{/if}}">
-			<h2>{{{this.label}}}</h2>
+			<legend>{{{this.label}}}</legend>
 			<p class="error-{{@key}}">{{this.error}}</p>
 			<div>
 			{{#each this.options}}
@@ -30,7 +30,7 @@
 				<label for="{{this.id}}" class="{{spreadAttributes ../this.classes}}">{{this.label}}</label>
 			{{/each}}
 			</div>
-		</section>
+		</fieldset>
 
 	{{!-- submit button & reset form button --}}
 	{{else if (eq this.type 'submit')}}
