@@ -24,6 +24,10 @@ section.optionsection > div {
 	);
 }
 
+section.checkboxsection > div {
+	--columns: 5;
+}
+
 section.optionsection h2 {
 	font-size: 1.3rem;
 }
@@ -47,6 +51,7 @@ section.optionsection label {
 	color: var(--radio-text);
 	transition: border-color 0.2s ease-in-out;
 	cursor: pointer;
+	white-space: nowrap;
 }
 
 section.radiosection input:checked + label {

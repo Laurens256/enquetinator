@@ -36,7 +36,7 @@ const validateUserData = (formData: FormUserData) => {
 	if (studentnumber === '') {
 		errors.studentnumber = 'Studentnummer is verplicht; 9 cijfers zonder speciale tekens toegestaan';
 	} else if (!studentNrRegex.test(formData.studentnumber)) {
-		errors.studentnumber = 'Studentnummer is niet geldig';
+		errors.studentnumber = 'Studentnummer is niet geldig; 9 cijfers zonder speciale tekens toegestaan';
 	} else {
 		errors.studentnumber = '';
 	}

@@ -23,6 +23,7 @@ const css = {
 };
 
 const js = {
+	HomeView: ['home'],
 	EnqueteView: ['enquete'],
 };
 

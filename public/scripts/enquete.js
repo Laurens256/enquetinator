@@ -8,8 +8,8 @@ const handleFormSubmit = (e) => {
 	const formData = new FormData(e.target);
 
 	// check if there are errors, if not continue
-	const errors = validateForm(formData);
-	if (Object.keys(errors).length > 0) {
+	const { errors, hasErrors } = validateForm(formData);
+	if (hasErrors) {
 		e.preventDefault();
 
 		for (const [key, value] of Object.entries(errors)) {
@@ -18,19 +18,31 @@ const handleFormSubmit = (e) => {
 				errorField.textContent = value;
 			}
 		}
+
+		const firstError = document.querySelector('p[class^="error-"]:not(:empty)');
+		if (firstError) {
+			firstError.scrollIntoView({
+				behavior: 'smooth',
+				block: 'center'
+			});
+		}
 	}
 };
 
 const validateForm = (formData) => {
 	let errors = {};
+	let hasErrors = false;
 
 	formNames.forEach((field) => {
 		if (!formData.has(field)) {
 			errors[field] = 'Dit veld is verplicht';
+			hasErrors = true;
+		} else {
+			errors[field] = '';
 		}
 	});
 
-	return errors;
+	return { errors, hasErrors };
 };
 
 const clearForm = (e) => {
