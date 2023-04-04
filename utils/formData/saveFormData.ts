@@ -22,7 +22,6 @@ const saveUserData = (formUserData: FormUserData) => {
 
 const saveSubjectData = (data: SaveableEnqueteData) => {
 	globalEnqueteData = { ...globalEnqueteData, ...data };
-	// console.log(globalEnqueteData);
 
 	if (Number.isNaN(globalChosenSemester)) {
 		const subject = Object.keys(data)[0];

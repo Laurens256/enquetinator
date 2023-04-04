@@ -46,7 +46,7 @@ header div a {
 
 header div a:focus-visible,
 header div a:hover {
-	background-color: var(--primary-text);
+	background-color: var(--text-white);
 	color: var(--header-bg);
 }
 

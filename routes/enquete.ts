@@ -18,7 +18,7 @@ const router = express.Router();
 // check the radio button that matches the value of the form data
 const setDefaultValues = (
 	subject: string,
-	tempErrors: any,
+	tempErrors: {[field: string]: string},
 	tempData?: TempEnqueteData
 ) => {
 	for (const [key, obj] of Object.entries(formFields)) {

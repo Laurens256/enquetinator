@@ -1,6 +1,6 @@
 type TempEnqueteData = {
 	subject: string;
-	teachers: any;
+	teachers: string[];
 	semester: number;
 	overall_rating: number;
 	difficulty_rating: number;
@@ -10,7 +10,7 @@ type TempEnqueteData = {
 
 type FormEnqueteData = {
 	subject: string;
-	teachers: any;
+	teachers: string[];
 	semester: string;
 	overall_rating: string;
 	difficulty_rating: string;
@@ -20,8 +20,7 @@ type FormEnqueteData = {
 
 type SaveableEnqueteData = {
 	[subject: string]: {
-		[x: string]: any;
-		teachers: any;
+		teachers: string[];
 		semester: number;
 		overall_rating: number;
 		difficulty_rating: number;
