@@ -81,15 +81,15 @@ header div a.underline::after {
 
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
 	header {
-		--header-top: calc(var(--header-height) / 10 * 4 * -1);
+		--header-top: calc(var(--header-height) / 10 * 3.5 * -1);
 		--heading-top: calc((var(--header-height) + var(--header-top)) / 4 - 1rem);
 	}
 
 	header div {
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 1rem;
 	}
 }
 
