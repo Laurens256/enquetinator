@@ -74,7 +74,7 @@ ul {
 	list-style: none;
 }
 
-span.checkmark,
+.checkmark,
 .underline {
 	position: relative;
 }
@@ -84,7 +84,7 @@ span.checkmark,
 	position: absolute;
 	width: 2.5ch;
 	height: 2px;
-	bottom: .5em;
+	bottom: 0.5em;
 	left: 50%;
 	transform: translateX(-50%) scale(0);
 	background-color: currentColor;
@@ -97,32 +97,37 @@ span.checkmark,
 	}
 }
 
-
 /* checkmark */
-span.checkmark {
+.checkmark {
 	--borderWidth: 4px;
 	--height: 20px;
 	--width: calc(var(--height) / 2);
 
-	height: var(--height);
-	width: var(--width);
+	width: 1.9rem;
+	height: 1.9rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
 }
 
-span.checkmark::before {
+.checkmark::before {
 	content: '';
 	position: absolute;
 	background-color: var(--checkmark-color);
-	width: 1.9rem;
-	height: 1.9rem;
+	width: 100%;
+	height: 100%;
 	border-radius: 50%;
 }
 
-span.checkmark::after {
+.checkmark::after {
 	content: '';
-	position: absolute;
-	transform: rotate(45deg) translate(90%, -25%);
-	height: 100%;
-	width: 100%;
+	position: relative;
+	transform: rotate(45deg);
+	height: var(--height);
+	width: var(--width);
 	border-bottom: var(--borderWidth) solid var(--text-white);
 	border-right: var(--borderWidth) solid var(--text-white);
+
+	text-align: center;
 }

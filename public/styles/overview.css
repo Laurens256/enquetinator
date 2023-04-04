@@ -54,17 +54,12 @@ main article ul a {
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
-	padding: 0.5rem 1.5rem 0.5rem 0;
 	font-weight: bold;
 }
 
 main article ul a:hover,
 main article ul a:focus-visible {
 	text-decoration: underline;
-}
-
-main article ul a span {
-	margin-top: -4px;
 }
 
 main > a {
@@ -79,7 +74,7 @@ main > a {
 	border: solid 2px var(--input-divider);
 	background-color: var(--primary-bg);
 	color: var(--primary-text);
-	transition: all .2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 	text-decoration: none;
 }
 
@@ -96,35 +91,37 @@ main > a.underline::after {
 }
 
 main > a:focus-visible::after,
-main > a:hover::after{
+main > a:hover::after {
 	transform: translateX(-50%) scale(1);
 }
 
 /* kruisje */
-span.cross.checkmark::before {
+.cross.checkmark::before {
 	background-color: var(--error-color);
-} 
+}
 
-span.cross.checkmark::after {
+.cross.checkmark::after {
 	content: '✕';
 	border: none;
-	transform: translate(55%, 5%);
 	font-size: 1.5rem;
+	transform: none;
+	width: 100%;
+	height: 100%;
 }
 
 @media screen and (max-width: 450px) {
 	main article {
-		padding: .5rem;
+		padding: 0.5rem;
 	}
 }
 
 @media screen and (max-width: 350px) {
-	main article ul a span {
+	main article ul a div.checkmark {
 		display: none;
 	}
 
 	main article ul {
-		gap: .2rem;
+		gap: 0.2rem;
 	}
 
 	main article ul a.completed {

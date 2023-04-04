@@ -76,3 +76,10 @@
 .submitsection button:hover::after {
 	transform: translateX(-50%) scale(1);
 }
+
+@media screen and (max-width: 600px) {
+	.submitsection {
+		grid-template-columns: 1fr;
+	}
+
+}

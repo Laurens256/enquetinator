@@ -54,7 +54,7 @@ div.inputwrapper {
 	position: relative;
 }
 
-div.inputwrapper span.checkmark {
+div.inputwrapper .checkmark {
 	display: none;
 	position: absolute;
 	right: 2rem;
