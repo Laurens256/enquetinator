@@ -24,8 +24,8 @@ De enquetinator is een server side rendered enquete over de minor: Web Design & 
 * [x] Mozilla Firefox v111.0.1 (Linux Mint)
 * [x] Lynx v2.9.0dev.10
 * [x] Samsung Internet v20.0.3.10
-* [ ] Safari Desktop v?
-* [ ] Safari Mobile v?
+* [x] Safari Desktop v16.2
+* [x] Safari Mobile v16.3
 * [x] Flow v6.9.0 (Linux Mint)
 
 ### Screenreader
